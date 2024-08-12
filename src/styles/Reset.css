@@ -122,3 +122,21 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+@media screen and (max-width: 393px) {
+  body {
+    font-size: 14px;
+  }
+  .App-header {
+    padding: 15px;
+  }
+}
+
+/* 아이폰 15 Pro 이상의 화면 크기 */
+@media screen and (min-width: 394px) {
+  body {
+    font-size: 16px;
+  }
+  .App-header {
+    padding: 20px;
+  }
+}
