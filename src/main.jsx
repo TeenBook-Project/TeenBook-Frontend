@@ -1,7 +1,8 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App.jsx";
-import "./index.css";
+
+import "./styles/Reset.css";
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
     // 서비스 워커의 경로 설정
