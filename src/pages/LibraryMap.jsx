@@ -1,5 +1,5 @@
 import React from "react";
-import Maps from "../components/Maps";
+import Maps from "../components/library/Maps";
 import styled from "styled-components";
 const LibraryMap = () => {
   return (
