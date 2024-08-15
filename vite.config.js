@@ -50,5 +50,12 @@ export default defineConfig({
   ],
   server: {
     hmr: true,
+    proxy: {
+      "/api": {
+        target: "https://libsta.go.kr",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ""),
+      },
+    },
   },
 });
