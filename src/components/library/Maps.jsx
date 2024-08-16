@@ -1,16 +1,29 @@
-import React from "react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { fetchLibraries } from "../../api/LibraryAPI";
-import LibraryInfoWindow from "./LibraryInfoWindow";
-import {
-  Map,
-  MapMarker,
-  MarkerClusterer,
-  CustomOverlayMap,
-} from "react-kakao-maps-sdk";
-const Maps = () => {
+import LibraryInfoWindow from "../library/LibraryInfoWindow";
+import { Map, MapMarker, MarkerClusterer } from "react-kakao-maps-sdk";
+import CurrentMarker from "../../assets/MarkerIcon.png";
+// 좌표 간 거리를 계산하는 함수 (단위: 미터)
+const calculateDistance = (lat1, lng1, lat2, lng2) => {
+  const R = 6371e3; // 지구 반지름 (미터)
+  const rad = (deg) => (deg * Math.PI) / 180;
+  const φ1 = rad(lat1);
+  const φ2 = rad(lat2);
+  const Δφ = rad(lat2 - lat1);
+  const Δλ = rad(lng2 - lng1);
+
+  const a =
+    Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
+    Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+  return R * c; // 거리 (미터)
+};
+
+const Maps = ({ updateButtonText }) => {
   const [libraries, setLibraries] = useState([]);
   const [selectedMarker, setSelectedMarker] = useState(null);
+  const [currentPosition, setCurrentPosition] = useState(null);
 
   useEffect(() => {
     const loadLibraries = async () => {
@@ -23,16 +36,63 @@ const Maps = () => {
     };
 
     loadLibraries();
+
+    // 테스트용으로 서울의 좌표를 현재 위치로 설정
+    setCurrentPosition({
+      lat: 37.6876674374375,
+      lng: 127.044019937677,
+    });
+
+    // 사용자 현재 위치 가져오기
+    /*
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setCurrentPosition({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        });
+      },
+      (error) => {
+        console.error("Error getting current position:", error);
+      }
+    );
+    */
   }, []);
 
+  useEffect(() => {
+    if (currentPosition && libraries.length > 0) {
+      const nearLibrary = libraries.some((lib) => {
+        const distance = calculateDistance(
+          currentPosition.lat,
+          currentPosition.lng,
+          lib.XCNTS,
+          lib.YDNTS
+        );
+        return distance < 50; // 50미터 이내에 있는지 확인
+      });
+
+      if (nearLibrary) {
+        updateButtonText("도서관에 도착했습니다!", false);
+      } else {
+        updateButtonText("도서관 근처가 아닙니다.", true);
+      }
+    } else {
+      updateButtonText("");
+    }
+  }, [currentPosition, libraries, updateButtonText]);
+
   const handleMarkerClick = (id) => {
-    // 이미 선택된 마커를 다시 클릭하면 닫고, 그렇지 않으면 새 마커 열기
     setSelectedMarker((prev) => (prev === id ? null : id));
   };
+
   return (
     <div style={{ width: "100%", height: "100%" }}>
       <Map
-        center={{ lat: 37.514575, lng: 127.0495556 }}
+        center={
+          currentPosition
+            ? { lat: currentPosition.lat, lng: currentPosition.lng }
+            : { lat: 37.514575, lng: 127.0495556 }
+        }
         style={{ width: "100%", height: "100%" }}
         level={10}
       >
@@ -53,6 +113,16 @@ const Maps = () => {
             </MapMarker>
           ))}
         </MarkerClusterer>
+        {/*현재 위치 표시 */}
+        {currentPosition && (
+          <MapMarker
+            position={{ lat: currentPosition.lat, lng: currentPosition.lng }}
+            image={{
+              src: CurrentMarker,
+              size: { width: 70, height: 70 },
+            }}
+          />
+        )}
       </Map>
     </div>
   );
