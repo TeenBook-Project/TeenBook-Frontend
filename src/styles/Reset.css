@@ -133,6 +133,12 @@ a:visited {
 a:hover {
   color: black; /* 마우스 오버 시 색상 변경 */
 }
+button {
+  border: none;
+  outline: none;
+  background-color: inherit;
+  cursor: pointer;
+}
 
 /* @media screen and (max-width: 393px) {
   body {

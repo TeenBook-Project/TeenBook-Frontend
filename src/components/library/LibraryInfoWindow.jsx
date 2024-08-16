@@ -7,8 +7,8 @@ const InfoWindow = styled.div`
   padding: 15px;
   background-color: white;
   position: relative; /* Absolute 자식 요소의 기준 */
-  min-width: 350px; /* 최소 너비 설정 */
-  max-width: 300px;
+  min-width: 270px; /* 최소 너비 설정 */
+  max-width: 270px;
   overflow: hidden;
   z-index: 100;
 `;

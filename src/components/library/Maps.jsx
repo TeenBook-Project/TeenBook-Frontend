@@ -30,10 +30,10 @@ const Maps = () => {
     setSelectedMarker((prev) => (prev === id ? null : id));
   };
   return (
-    <div>
+    <div style={{ width: "100%", height: "100%" }}>
       <Map
         center={{ lat: 37.514575, lng: 127.0495556 }}
-        style={{ width: "100%", height: "100vh" }}
+        style={{ width: "100%", height: "100%" }}
         level={10}
       >
         <MarkerClusterer averageCenter={true} minLevel={10}>
