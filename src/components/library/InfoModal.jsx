@@ -4,7 +4,10 @@ import pin from "../../assets/icons-pin-48.png";
 import palm from "../../assets/icons-palm-48.png";
 import hourglass from "../../assets/icons-hourglass-48.png";
 import tell from "../../assets/icons-tell-48.png";
-
+import { IoCloseOutline } from "react-icons/io5";
+import { MdStars } from "react-icons/md";
+import { useRecoilState } from "recoil";
+import { FavoritAtom } from "../../recoil/FavoritAtom";
 // 모달을 중앙에 배치하기 위한 오버레이
 const Overlay = styled.div`
   position: fixed;
@@ -16,7 +19,7 @@ const Overlay = styled.div`
   justify-content: center;
   align-items: center;
   z-index: 1000;
-  pointer-events: none; // 오버레이를 클릭할 수 없게 함
+  pointer-events: none;
 `;
 
 // 중앙에 위치한 모달 내용
@@ -30,16 +33,15 @@ const Content = styled.div`
   overflow-y: auto; // 내용이 넘칠 경우 스크롤 가능
   pointer-events: auto; // 모달 내용과 상호작용 가능
 `;
-
-// 닫기 버튼 스타일
-const CloseButton = styled.button`
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: transparent;
-  border: none;
-  font-size: 16px;
-  cursor: pointer;
+const Button = styled.div`
+  /* display: flex; */
+  float: right;
+  /* .favorit-button {
+    &:disabled {
+      background-color: yellow;
+      
+    }
+  } */
 `;
 
 // 도서관 정보 스타일
@@ -71,12 +73,39 @@ const LibraryInfo = styled.div`
 `;
 
 const InfoModal = ({ isOpen, onClose, library }) => {
+  const [favoritItem, setFavoritItem] = useRecoilState(FavoritAtom);
   if (!isOpen) return null;
+  //이미 존재하는 도서관은 추가x
+  const isAlreadyInFavorit = favoritItem.filter(
+    (e) => e.LBRRY_SEQ_NO === library.LBRRY_SEQ_NO
+  ).length;
+
+  const toggleFavorit = () => {
+    if (isAlreadyInFavorit) {
+      // 도서관이 즐겨찾기에 있다면 제거
+      setFavoritItem((prev) =>
+        prev.filter((e) => e.LBRRY_SEQ_NO !== library.LBRRY_SEQ_NO)
+      );
+    } else {
+      // 도서관이 즐겨찾기에 없다면 추가
+      setFavoritItem((prev) => [...prev, library]);
+    }
+  };
 
   return (
     <Overlay onClick={onClose}>
       <Content onClick={(e) => e.stopPropagation()}>
-        <CloseButton onClick={onClose}>X</CloseButton>
+        <Button>
+          <button
+            onClick={toggleFavorit}
+            // disabled={isAlreadyInFavorit}
+          >
+            <MdStars size={25} color={isAlreadyInFavorit ? "gold" : "gray"} />
+          </button>
+          <button className="close-button" onClick={onClose}>
+            <IoCloseOutline size={25} />
+          </button>
+        </Button>
         {library && (
           <LibraryInfo>
             <div className="title">

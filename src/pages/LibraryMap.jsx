@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import Maps from "../components/library/Maps";
 import styled from "styled-components";
 import Favorites from "../components/library/Favorites";
-
+import { useRecoilState } from "recoil";
+import { FavoritAtom } from "../recoil/FavoritAtom";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -37,6 +38,8 @@ const TabMenu = styled.div`
   display: flex;
   justify-content: space-around;
   /* padding-bottom: 20px; */
+  box-shadow: 0px 5px 5px -2px lightgray;
+
   .submenu {
     margin-bottom: 10px;
     font-weight: 700;
@@ -51,6 +54,7 @@ const TabMenu = styled.div`
 
 const LibraryMap = () => {
   const [currentTab, setCurrentTab] = useState(0);
+  const [favoritItem, setFavortItem] = useRecoilState(FavoritAtom);
   const menuArr = [
     { name: "가까운 매장", content: <Maps /> },
     { name: "자주 찾는 매장", content: <Favorites /> },
