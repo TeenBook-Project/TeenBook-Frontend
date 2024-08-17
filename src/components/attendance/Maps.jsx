@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { fetchLibraries } from "../../api/LibraryAPI";
 import { Map, MapMarker, MarkerClusterer } from "react-kakao-maps-sdk";
-import InfoModal from "./InfoModal";
 import CurrentMarker from "../../assets/MarkerIcon.png";
-
+import { fetchLibraries } from "../../api/LibraryAPI";
 // 좌표 간 거리를 계산하는 함수 (단위: 미터)
 const calculateDistance = (lat1, lng1, lat2, lng2) => {
   const R = 6371e3; // 지구 반지름 (미터)
@@ -21,20 +19,19 @@ const calculateDistance = (lat1, lng1, lat2, lng2) => {
   return R * c; // 거리 (미터)
 };
 
-const Maps = () => {
+const Maps = ({ updateButtonText }) => {
   const [libraries, setLibraries] = useState([]);
-  const [selectedLibrary, setSelectedLibrary] = useState(null); // 선택된 도서관 정보
+  const [selectedMarker, setSelectedMarker] = useState(null);
   const [currentPosition, setCurrentPosition] = useState(null);
 
-  // 필터링을 위한 거리 제한 (예: 3km)
-  const distanceLimit = 3000;
+  // 필터링을 위한 거리 제한 (예: 500미터)
+  const distanceLimit = 3000; // 500미터 이내의 도서관만 표시
 
   useEffect(() => {
     const loadLibraries = async () => {
       try {
         const data = await fetchLibraries();
-        console.log("Fetched data:", data);
-        setLibraries(data.SeoulPublicLibraryInfo.row || []);
+        setLibraries(data.SeoulPublicLibraryInfo.row);
       } catch (error) {
         console.error("Error loading libraries:", error);
       }
@@ -64,6 +61,28 @@ const Maps = () => {
     */
   }, []);
 
+  useEffect(() => {
+    if (currentPosition && libraries.length > 0) {
+      const nearLibrary = libraries.some((lib) => {
+        const distance = calculateDistance(
+          currentPosition.lat,
+          currentPosition.lng,
+          lib.XCNTS,
+          lib.YDNTS
+        );
+        return distance < 50; // 50미터 이내에 있는지 확인
+      });
+
+      if (nearLibrary) {
+        updateButtonText("도서관에 도착했습니다!", false);
+      } else {
+        updateButtonText("도서관 근처가 아닙니다.", true);
+      }
+    } else {
+      updateButtonText("");
+    }
+  }, [currentPosition, libraries, updateButtonText]);
+
   // 가까운 도서관만 필터링하는 함수
   const filteredLibraries = libraries.filter((lib) => {
     if (!currentPosition) return false;
@@ -76,12 +95,8 @@ const Maps = () => {
     return distance <= distanceLimit; // distanceLimit 미터 이내의 도서관만 포함
   });
 
-  const handleMarkerClick = (library) => {
-    setSelectedLibrary(library); // 선택된 도서관 정보를 설정하고 모달 열기
-  };
-
-  const handleCloseModal = () => {
-    setSelectedLibrary(null); // 모달 닫기
+  const handleMarkerClick = (id) => {
+    setSelectedMarker((prev) => (prev === id ? null : id));
   };
 
   return (
@@ -92,7 +107,7 @@ const Maps = () => {
             ? { lat: currentPosition.lat, lng: currentPosition.lng }
             : { lat: 37.514575, lng: 127.0495556 }
         }
-        style={{ width: "100%", height: "85vh", position: "relative" }}
+        style={{ width: "100%", height: "100%" }}
         level={10}
       >
         <MarkerClusterer averageCenter={true} minLevel={10}>
@@ -100,12 +115,11 @@ const Maps = () => {
             <MapMarker
               key={lib.LBRRY_SEQ_NO}
               position={{ lat: lib.XCNTS, lng: lib.YDNTS }}
-              onClick={() => handleMarkerClick(lib)} // 마커 클릭 시 모달 열기
               clickable={true}
-            />
+            ></MapMarker>
           ))}
         </MarkerClusterer>
-        {/* 현재 위치 표시 */}
+        {/*현재 위치 표시 */}
         {currentPosition && (
           <MapMarker
             position={{ lat: currentPosition.lat, lng: currentPosition.lng }}
@@ -116,13 +130,6 @@ const Maps = () => {
           />
         )}
       </Map>
-
-      {/* 도서관 정보 모달 표시 */}
-      <InfoModal
-        isOpen={selectedLibrary !== null}
-        onClose={handleCloseModal}
-        library={selectedLibrary}
-      ></InfoModal>
     </div>
   );
 };

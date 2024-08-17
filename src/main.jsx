@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import App from "./App.jsx";
 import { BrowserRouter } from "react-router-dom";
 import "./styles/Reset.css";
+import { RecoilRoot } from "recoil";
 // if ("serviceWorker" in navigator) {
 //   window.addEventListener("load", () => {
 //     // 서비스 워커의 경로 설정
@@ -21,9 +22,11 @@ import "./styles/Reset.css";
 //   });
 // }
 createRoot(document.getElementById("root")).render(
-  <BrowserRouter>
-    <StrictMode>
-      <App />
-    </StrictMode>
-  </BrowserRouter>
+  <RecoilRoot>
+    <BrowserRouter>
+      <StrictMode>
+        <App />
+      </StrictMode>
+    </BrowserRouter>
+  </RecoilRoot>
 );

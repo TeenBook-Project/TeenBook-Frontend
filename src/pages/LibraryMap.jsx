@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Maps from "../components/library/Maps";
 import styled from "styled-components";
-import { IoChevronBack } from "react-icons/io5";
-import { useNavigate } from "react-router-dom";
-
+import Favorites from "../components/library/Favorites";
+import { useRecoilState } from "recoil";
+import { FavoritAtom } from "../recoil/FavoritAtom";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   height: 100vh;
-  background-color: white;
 `;
 
 const Header = styled.div`
@@ -24,19 +23,7 @@ const Header = styled.div`
     font-weight: bold;
   }
 `;
-const AttendanceText = styled.div`
-  margin: 10px auto 0;
-  width: 300px;
-  height: 40px;
-  border-radius: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 16px;
-  font-weight: bold;
-  color: ${({ isDisabled }) => (isDisabled ? "#a9a9a9" : "white")};
-  background-color: ${({ isDisabled }) => (isDisabled ? "#d3d3d3" : "#957fe2")};
-`;
+
 const Bottom = styled.div`
   display: flex;
   align-items: center;
@@ -44,60 +31,59 @@ const Bottom = styled.div`
   padding: 16px;
 `;
 
-const AttendanceButton = styled.button`
-  width: 300px;
-  height: 40px;
-  background-color: ${({ isDisabled }) => (isDisabled ? "#d3d3d3" : "#957fe2")};
-  border-radius: 20px;
-  line-height: 40px;
-  text-align: center;
-  color: ${({ isDisabled }) => (isDisabled ? "#a9a9a9" : "white")};
-  font-size: 16px;
-  font-weight: bold;
-  border: none;
-  cursor: ${({ isDisabled }) => (isDisabled ? "not-allowed" : "pointer")};
-`;
-
 const MapContainer = styled.div`
   flex-grow: 1;
 `;
+const TabMenu = styled.div`
+  display: flex;
+  justify-content: space-around;
+  /* padding-bottom: 20px; */
+  box-shadow: 0px 5px 5px -2px lightgray;
+
+  .submenu {
+    margin-bottom: 10px;
+    font-weight: 700;
+    color: #9d9d9e;
+    cursor: pointer;
+  }
+  .focused {
+    color: #8367e1;
+    /* border-bottom: 3px solid #8367e1; */
+  }
+`;
 
 const LibraryMap = () => {
-  const [buttonText, setButtonText] = useState("");
-  const [buttonDisabled, setButtonDisabled] = useState(false);
-  const navigate = useNavigate();
+  const [currentTab, setCurrentTab] = useState(0);
+  const [favoritItem, setFavortItem] = useRecoilState(FavoritAtom);
+  const menuArr = [
+    { name: "가까운 매장", content: <Maps /> },
+    { name: "자주 찾는 매장", content: <Favorites /> },
+  ];
 
-  const onClickBtn = () => {
-    // 버튼이 비활성화 상태일 때는 클릭하지 못하도록
-    if (!buttonDisabled) {
-      // 출석하기 버튼 클릭 시 동작할 내용
-    }
+  const selectMenuHandler = (index) => {
+    setCurrentTab(index);
   };
-
-  const updateButtonText = (text, disabled) => {
-    setButtonText(text);
-    setButtonDisabled(disabled);
-  };
-
   return (
     <Container>
-      <Header>
-        <button className="back-button" onClick={() => navigate(-1)}>
-          <IoChevronBack />
-          뒤로가기
-        </button>
-        <AttendanceText isDisabled={buttonDisabled}>
-          {buttonText}
-        </AttendanceText>
-      </Header>
+      <Header> </Header>
       <MapContainer>
-        <Maps updateButtonText={updateButtonText} />
+        <TabMenu>
+          {menuArr.map((tap, index) => {
+            return (
+              <div
+                key={index}
+                className={currentTab === index ? "submenu focused" : "submenu"}
+                onClick={() => selectMenuHandler(index)}
+              >
+                {tap.name}
+              </div>
+            );
+          })}
+        </TabMenu>
+        <div>{menuArr[currentTab].content}</div>
+        {/* <Maps /> */}
       </MapContainer>
-      <Bottom>
-        <AttendanceButton isDisabled={buttonDisabled} onClick={onClickBtn}>
-          출석하기
-        </AttendanceButton>
-      </Bottom>
+      <Bottom></Bottom>
     </Container>
   );
 };
