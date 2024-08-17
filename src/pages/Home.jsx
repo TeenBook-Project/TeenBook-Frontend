@@ -4,7 +4,9 @@ import styled from "styled-components";
 const Home = () => {
   return (
     <Container>
-      <Link to="/LibraryMap">도서관 지도</Link>
+      <Link to="/AttendanceMap">출석하기</Link>
+      <Link to="/LibraryMap">지도</Link>
+
       <Link to="/LibraryData">도서관 데이터</Link>
     </Container>
   );

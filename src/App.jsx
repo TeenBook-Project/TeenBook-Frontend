@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import LibraryMap from "./pages/LibraryMap";
 import Layout from "./components/Layout";
 import LibraryData from "./components/LibraryData";
+import AttendanceMap from "./pages/AttendanceMap";
 import "./App.css";
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/LibraryMap" element={<LibraryMap />} />
         <Route path="/LibraryData" element={<LibraryData />} />
+        <Route path="/AttendanceMap" element={<AttendanceMap />} />
       </Routes>
     </Layout>
   );
