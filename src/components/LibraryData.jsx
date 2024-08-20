@@ -9,6 +9,7 @@ const LibraryData = () => {
       try {
         const data = await fetchLibraries();
         setLibraries(data.SeoulPublicLibraryInfo.row);
+        console.log("도서관 데이터:", data.SeoulPublicLibraryInfo.row);
       } catch (error) {
         console.error("Error loading libraries:", error);
       }
