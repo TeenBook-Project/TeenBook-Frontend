@@ -8,6 +8,7 @@ const Home = () => {
       <Link to="/LibraryMap">지도</Link>
 
       <Link to="/LibraryData">도서관 데이터</Link>
+      <Link to="/BooksData">북데이터</Link>
     </Container>
   );
 };
