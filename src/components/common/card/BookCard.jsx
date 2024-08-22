@@ -6,8 +6,8 @@ const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 95%;
-  height: 92%;
+  width: 100%;
+  height: 100%;
   padding: 10px;
   position: relative;
 
@@ -21,6 +21,7 @@ const CardContainer = styled.div`
     background-color: white;
     padding: 5px;
     font-size: 10px;
+    margin: 10px;
     z-index: 1;
 
     p {
@@ -35,19 +36,21 @@ const ImageContainer = styled.div`
   align-items: center;
   width: 100%;
   flex-grow: 1;
-  padding: 30px;
+  padding: 0 20px 20px;
   img {
-    max-width: 100%;
-    max-height: 100%;
+    /* max-width: 100%;
+    max-height: 70%; */
     object-fit: contain;
   }
 `;
 
 const Content = styled.div`
   width: 100%;
-  padding: 10px;
+  /* height: 20%; */
+  padding: 20px 20px 30px;
   box-sizing: border-box;
   background-color: white;
+  border-radius: 20px;
   position: fixed;
   bottom: 0;
 

@@ -5,7 +5,26 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import BookCard from "../card/BookCard";
 import styled from "styled-components";
-
+const MySwipter = styled(Swiper)`
+  width: 100%;
+  height: 100%;
+`;
+const SwiperContainer = styled(SwiperSlide)`
+  font-size: 18px;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  border-radius: 20px;
+  img {
+    display: block;
+    width: 100%;
+    height: 85%;
+    -o-object-fit: cover;
+    object-fit: cover;
+  }
+`;
 const PopularBookRank = () => {
   const [books, setBooks] = useState([]);
 
@@ -35,18 +54,18 @@ const PopularBookRank = () => {
   };
 
   return (
-    <Swiper
+    <MySwipter
       slidesPerView={1}
       spaceBetween={10}
       className="mySwiper"
       // style={{ width: "150%" }}
     >
       {books.map((e, index) => (
-        <SwiperSlide key={e.doc.no}>
+        <SwiperContainer key={e.doc.no}>
           <BookCard data={e.doc} ranking={index + 1} />
-        </SwiperSlide>
+        </SwiperContainer>
       ))}
-    </Swiper>
+    </MySwipter>
   );
 };
 
