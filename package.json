@@ -23,6 +23,7 @@
     "recoil": "^0.7.7",
     "recoil-persist": "^5.1.0",
     "styled-components": "^6.1.12",
+    "swiper": "^11.1.10",
     "xml2js": "^0.6.2"
   },
   "devDependencies": {

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Maps from "../components/library/Maps";
+import Header from "../components/common/Header";
+import Footer from "../components/common/Footer";
 import styled from "styled-components";
 import Favorites from "../components/library/Favorites";
 import { useRecoilState } from "recoil";
@@ -10,34 +12,16 @@ const Container = styled.div`
   height: 100vh;
 `;
 
-const Header = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 16px;
-
-  .back-button {
-    align-self: flex-start;
-    display: flex;
-    align-items: center;
-    font-size: 16px;
-    font-weight: bold;
-  }
-`;
-
-const Bottom = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 16px;
-`;
-
 const MapContainer = styled.div`
-  flex-grow: 1;
+  flex: 1;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 const TabMenu = styled.div`
   display: flex;
   justify-content: space-around;
-  /* padding-bottom: 20px; */
   box-shadow: 0px 5px 5px -2px lightgray;
 
   .submenu {
@@ -48,7 +32,6 @@ const TabMenu = styled.div`
   }
   .focused {
     color: #8367e1;
-    /* border-bottom: 3px solid #8367e1; */
   }
 `;
 
@@ -65,7 +48,8 @@ const LibraryMap = () => {
   };
   return (
     <Container>
-      <Header> </Header>
+      <Header />
+
       <MapContainer>
         <TabMenu>
           {menuArr.map((tap, index) => {
@@ -81,9 +65,8 @@ const LibraryMap = () => {
           })}
         </TabMenu>
         <div>{menuArr[currentTab].content}</div>
-        {/* <Maps /> */}
       </MapContainer>
-      <Bottom></Bottom>
+      <Footer />
     </Container>
   );
 };

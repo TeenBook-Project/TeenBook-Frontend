@@ -18,7 +18,7 @@ const KAKAO = styled.button`
   align-items: center;
   width: 335px;
   height: 45px;
-  margin-top: 220px;
+  /* margin-top: 220px; */
   background-color: #fee500;
   border-radius: 10px;
   font-weight: bold;
@@ -58,12 +58,12 @@ const KakaoLogin = () => {
       const { profile } = kakao_account;
 
       const userData = {
-        id: id,
-        nickname: profile.nickname,
-        profile_image: profile.profile_image_url,
+        userId: id,
+        userName: profile.nickname,
+        profile: profile.profile_image_url,
       };
       console.log("데이터:", userData);
-
+      navigate("/Home");
       const result = await fetch("/auth", {
         method: "POST",
         headers: {
@@ -74,7 +74,6 @@ const KakaoLogin = () => {
 
       const data = await result.json();
       console.log("Success:", data);
-      navigate("/Home");
     } catch (error) {
       console.error("Error:", error);
     }
