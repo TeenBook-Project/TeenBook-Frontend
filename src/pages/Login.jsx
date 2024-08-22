@@ -6,9 +6,11 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   height: 100vh;
-  background: radial-gradient(at 50% 35%, #512ad1, #8367e1, white);
+  /* background: radial-gradient(at 50% 35%, #512ad1, #8367e1, white); */
+  background: linear-gradient(to top, white, #8367e1, #8367e1);
 
   .app-contnet {
+    flex-grow: 1;
     padding: 100px 50px;
     color: white;
     p:nth-child(1) {
@@ -25,7 +27,7 @@ const Container = styled.div`
     }
   }
   .login {
-    margin: 0 auto;
+    margin: 0 auto 50px;
   }
 `;
 const Login = () => {

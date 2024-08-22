@@ -27,7 +27,7 @@ const Maps = () => {
   const [currentPosition, setCurrentPosition] = useState(null);
 
   // 필터링을 위한 거리 제한 (예: 3km)
-  const distanceLimit = 3000;
+  const distanceLimit = 5000;
 
   useEffect(() => {
     const loadLibraries = async () => {
