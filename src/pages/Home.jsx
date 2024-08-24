@@ -78,6 +78,7 @@ const Menu = styled.div`
 
     .content {
       display: flex;
+
       justify-content: space-between;
       font-size: 7px;
       font-weight: 500;
