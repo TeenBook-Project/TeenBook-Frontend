@@ -14,13 +14,13 @@ const Container = styled.div`
 const Header = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 16px;
+  padding: 10px 6px;
 
   .back-button {
     align-self: flex-start;
     display: flex;
     align-items: center;
-    font-size: 16px;
+    font-size: 20px;
     font-weight: bold;
   }
 `;
@@ -83,7 +83,7 @@ const AttendanceMap = () => {
     <Container>
       <Header>
         <button className="back-button" onClick={() => navigate(-1)}>
-          <IoChevronBack />
+          <IoChevronBack size={25} />
           뒤로가기
         </button>
         <AttendanceText isDisabled={buttonDisabled}>
