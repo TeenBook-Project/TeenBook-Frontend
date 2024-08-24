@@ -39,7 +39,7 @@ const Footer = () => {
 
   return (
     <Container>
-      <MenuItem to="/Chart" active={pathname === "/Chart"}>
+      <MenuItem to="/Stats" active={pathname === "/Stats"}>
         <FiPieChart size={20} />
         <p>통계</p>
       </MenuItem>
