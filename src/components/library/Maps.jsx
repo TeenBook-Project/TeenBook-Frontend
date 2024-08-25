@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { fetchLibraries } from "../../api/LibraryAPI";
-import { Map, MapMarker, MarkerClusterer } from "react-kakao-maps-sdk";
+import { Map, MapMarker, MarkerClusterer, Circle } from "react-kakao-maps-sdk";
 import InfoModal from "./InfoModal";
-import CurrentMarker from "../../assets/MarkerIcon.png";
+import CurrentMarker from "../../assets/MyMarker.png";
+import LibraryMarker from "../../assets/LibraryMarker.png";
 
 // 좌표 간 거리를 계산하는 함수 (단위: 미터)
 const calculateDistance = (lat1, lng1, lat2, lng2) => {
@@ -25,6 +26,7 @@ const Maps = () => {
   const [libraries, setLibraries] = useState([]);
   const [selectedLibrary, setSelectedLibrary] = useState(null); // 선택된 도서관 정보
   const [currentPosition, setCurrentPosition] = useState(null);
+  const [mapLevel, setMapLevel] = useState(10);
 
   // 필터링을 위한 거리 제한 (예: 3km)
   const distanceLimit = 5000;
@@ -93,16 +95,37 @@ const Maps = () => {
             : { lat: 37.514575, lng: 127.0495556 }
         }
         style={{ width: "100%", height: "85vh", position: "relative" }}
-        level={10}
+        level={mapLevel}
+        onZoomChanged={(map) => setMapLevel(map.getLevel())}
       >
         <MarkerClusterer averageCenter={true} minLevel={10}>
           {filteredLibraries.map((lib) => (
-            <MapMarker
-              key={lib.LBRRY_SEQ_NO}
-              position={{ lat: lib.XCNTS, lng: lib.YDNTS }}
-              onClick={() => handleMarkerClick(lib)} // 마커 클릭 시 모달 열기
-              clickable={true}
-            />
+            <div key={lib.LBRRY_SEQ_NO}>
+              <MapMarker
+                position={{ lat: lib.XCNTS, lng: lib.YDNTS }}
+                onClick={() => handleMarkerClick(lib)} // 마커 클릭 시 모달 열기
+                clickable={true}
+                image={{
+                  src: LibraryMarker,
+                  size: { width: 32, height: 40 },
+                }}
+              />
+              {mapLevel <= 4 && (
+                <Circle
+                  center={{
+                    lat: lib.XCNTS,
+                    lng: lib.YDNTS,
+                  }}
+                  radius={50}
+                  strokeWeight={1} // 선의 두께
+                  strokeColor={"#5479EE"} // 선의 색깔
+                  strokeOpacity={1} // 선의 불투명도
+                  strokeStyle={"solid"} // 선의 스타일
+                  fillColor={"#CFE7FF"} // 채우기 색깔
+                  fillOpacity={0.5} // 채우기 불투명도
+                />
+              )}
+            </div>
           ))}
         </MarkerClusterer>
         {/* 현재 위치 표시 */}
@@ -111,7 +134,7 @@ const Maps = () => {
             position={{ lat: currentPosition.lat, lng: currentPosition.lng }}
             image={{
               src: CurrentMarker,
-              size: { width: 70, height: 70 },
+              size: { width: 20, height: 20 },
             }}
           />
         )}

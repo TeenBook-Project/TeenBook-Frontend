@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Map, MapMarker, MarkerClusterer } from "react-kakao-maps-sdk";
-import CurrentMarker from "../../assets/MarkerIcon.png";
+import { Map, MapMarker, MarkerClusterer, Circle } from "react-kakao-maps-sdk";
+import CurrentMarker from "../../assets/MyMarker.png";
+import LabraryMarker from "../../assets/LibraryMarker.png";
 import { fetchLibraries } from "../../api/LibraryAPI";
 // 좌표 간 거리를 계산하는 함수 (단위: 미터)
 const calculateDistance = (lat1, lng1, lat2, lng2) => {
@@ -23,6 +24,7 @@ const Maps = ({ updateButtonText }) => {
   const [libraries, setLibraries] = useState([]);
   const [selectedMarker, setSelectedMarker] = useState(null);
   const [currentPosition, setCurrentPosition] = useState(null);
+  const [mapLevel, setMapLevel] = useState(10);
 
   // 필터링을 위한 거리 제한 (예: 500미터)
   const distanceLimit = 3000; // 500미터 이내의 도서관만 표시
@@ -40,9 +42,15 @@ const Maps = ({ updateButtonText }) => {
     loadLibraries();
 
     // 테스트용으로 서울의 좌표를 현재 위치로 설정
+    //50m in
+    // setCurrentPosition({
+    //   lat: 37.6874291,
+    //   lng: 127.044192,
+    // });
+    //50m out
     setCurrentPosition({
-      lat: 37.6876674374375,
-      lng: 127.044019937677,
+      lat: 37.6874124,
+      lng: 127.0448595,
     });
 
     // 사용자 현재 위치 가져오기
@@ -108,26 +116,46 @@ const Maps = ({ updateButtonText }) => {
             : { lat: 37.514575, lng: 127.0495556 }
         }
         style={{ width: "100%", height: "100%" }}
-        level={10}
+        level={mapLevel}
+        onZoomChanged={(map) => setMapLevel(map.getLevel())}
       >
         <MarkerClusterer averageCenter={true} minLevel={10}>
           {filteredLibraries.map((lib) => (
-            <MapMarker
-              key={lib.LBRRY_SEQ_NO}
-              position={{ lat: lib.XCNTS, lng: lib.YDNTS }}
-              clickable={true}
-            ></MapMarker>
+            <div key={lib.LBRRY_SEQ_NO}>
+              <MapMarker
+                position={{ lat: lib.XCNTS, lng: lib.YDNTS }}
+                clickable={true}
+                image={{ src: LabraryMarker, size: { width: 32, height: 40 } }}
+              ></MapMarker>
+              {mapLevel <= 4 && (
+                <Circle
+                  center={{
+                    lat: lib.XCNTS,
+                    lng: lib.YDNTS,
+                  }}
+                  radius={50}
+                  strokeWeight={1} // 선의 두께
+                  strokeColor={"#5479EE"} // 선의 색깔
+                  strokeOpacity={1} // 선의 불투명도
+                  strokeStyle={"solid"} // 선의 스타일
+                  fillColor={"#CFE7FF"} // 채우기 색깔
+                  fillOpacity={0.5} // 채우기 불투명도
+                />
+              )}
+            </div>
           ))}
         </MarkerClusterer>
         {/*현재 위치 표시 */}
-        {currentPosition && (
-          <MapMarker
-            position={{ lat: currentPosition.lat, lng: currentPosition.lng }}
-            image={{
-              src: CurrentMarker,
-              size: { width: 70, height: 70 },
-            }}
-          />
+        {currentPosition && mapLevel <= 10 && (
+          <div>
+            <MapMarker
+              position={{ lat: currentPosition.lat, lng: currentPosition.lng }}
+              image={{
+                src: CurrentMarker,
+                size: { width: 20, height: 20 },
+              }}
+            />
+          </div>
         )}
       </Map>
     </div>
