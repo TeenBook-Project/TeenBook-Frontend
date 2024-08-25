@@ -2,16 +2,21 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" href="/library.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="manifest" href="/manifest.json" />
+    <!-- <link rel="manifest" href="/manifest.json" /> -->
     <!-- <link rel="manifest" href="/manifest.webmanifest" crossorigin="anonymous" /> -->
 
-    <title>Vite + React</title>
+    <title>library</title>
     <link rel="apple-touch-icon" href="/logo192.png" />
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    <script
+      type="text/javascript"
+      src="//dapi.kakao.com/v2/maps/sdk.js?appkey=88f6485c042878a8fec99204cddfd116&libraries=services,clusterer"
+    ></script>
   </body>
 </html>
