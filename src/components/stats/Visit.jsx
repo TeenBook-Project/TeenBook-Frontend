@@ -7,8 +7,8 @@ const Container = styled.div`
   background-color: white;
   border-radius: 10px;
   padding: 20px 17px 40px;
-  margin: 25px 0;
-  height: 80%;
+  /* margin: 20px 0; */
+  height: 90%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -23,6 +23,7 @@ const Container = styled.div`
     align-items: center;
     .graph {
       width: 50%;
+      padding: 10px;
       /* 원형 막대기 색상 */
       .CircularProgressbar-path {
         stroke: #8367e1;
@@ -43,7 +44,8 @@ const Container = styled.div`
       }
 
       span {
-        font-size: 12px;
+        font-size: 0.7rem;
+        color: #b1b1b1;
       }
       span:nth-child(2) {
         color: #ed8728;

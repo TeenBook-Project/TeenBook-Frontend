@@ -14,7 +14,7 @@ const Container = styled.div`
 
 const StatsContainer = styled.div`
   flex: 1;
-  padding: 30px 17px;
+  padding: 20px 17px;
 
   display: flex;
   flex-direction: column;
