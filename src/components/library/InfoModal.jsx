@@ -8,6 +8,7 @@ import { IoCloseOutline } from "react-icons/io5";
 import { MdStars } from "react-icons/md";
 import { useRecoilState } from "recoil";
 import { FavoritAtom } from "../../recoil/FavoritAtom";
+import Event from "../../assets/Event.png";
 // 모달을 중앙에 배치하기 위한 오버레이
 const Overlay = styled.div`
   position: fixed;
@@ -56,7 +57,7 @@ const LibraryInfo = styled.div`
     div {
       display: flex;
       justify-content: center;
-      width: 60px;
+      width: 65px;
       padding: 5px;
       font-size: 9.5px;
       font-weight: 700;
@@ -68,6 +69,9 @@ const LibraryInfo = styled.div`
     margin-top: 20px;
     p {
       margin: 3px 0;
+    }
+    .event {
+      margin: 20px 0 10px;
     }
   }
 `;
@@ -127,6 +131,8 @@ const InfoModal = ({ isOpen, onClose, library }) => {
               <p>
                 <img src={hourglass} width="20" alt="" /> : {library.OP_TIME}
               </p>
+              <div className="event">진행중인 이벤트</div>
+              <img src={Event} alt="" />
             </div>
           </LibraryInfo>
         )}

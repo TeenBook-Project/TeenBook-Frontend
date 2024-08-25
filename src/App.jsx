@@ -6,9 +6,9 @@ import Layout from "./components/Layout";
 import LibraryData from "./components/LibraryData";
 import AttendanceMap from "./pages/AttendanceMap";
 import BooksData from "./components/BooksData";
-import Chart from "./pages/Chart";
 import Login from "./pages/Login";
 import Loan from "./pages/Loan";
+import Stats from "./pages/Stats";
 import "./App.css";
 function App() {
   return (
@@ -20,8 +20,8 @@ function App() {
         <Route path="/LibraryData" element={<LibraryData />} />
         <Route path="/BooksData" element={<BooksData />} />
         <Route path="/AttendanceMap" element={<AttendanceMap />} />
-        <Route path="/Chart" element={<Chart />} />
         <Route path="/Loan" element={<Loan />} />
+        <Route path="/Stats" element={<Stats />} />
       </Routes>
     </Layout>
   );
