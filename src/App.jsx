@@ -9,6 +9,7 @@ import BooksData from "./components/BooksData";
 import Login from "./pages/Login";
 import Loan from "./pages/Loan";
 import Stats from "./pages/Stats";
+import Shop from "./pages/Shop";
 import "./App.css";
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/AttendanceMap" element={<AttendanceMap />} />
         <Route path="/Loan" element={<Loan />} />
         <Route path="/Stats" element={<Stats />} />
+        <Route path="/Shop" element={<Shop />} />
       </Routes>
     </Layout>
   );
