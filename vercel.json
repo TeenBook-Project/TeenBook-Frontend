@@ -5,8 +5,12 @@
   ],
   "rewrites": [
     {
-      "source": "/api/:path*",
+      "source": "/api/library/:path*",
       "destination": "http://openapi.seoul.go.kr:8088/:path*"
+    },
+    {
+      "source": "/api/popular/:path*",
+      "destination": "http://data4library.kr/:path*"
     }
   ]
 }
