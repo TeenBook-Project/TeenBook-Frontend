@@ -51,16 +51,16 @@ export default defineConfig({
   server: {
     hmr: true,
     proxy: {
-      // "/api/library": {
-      //   target: "http://openapi.seoul.go.kr:8088",
-      //   changeOrigin: true,
-      //   rewrite: (path) => path.replace(/^\/api\/library/, ""),
-      // },
-      // "/api/popular": {
-      //   target: "http://data4library.kr",
-      //   changeOrigin: true,
-      //   rewrite: (path) => path.replace(/^\/api\/popular/, "/api/loanItemSrch"),
-      // },
+      "/api/library": {
+        target: "http://openapi.seoul.go.kr:8088",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api\/library/, ""),
+      },
+      "/api/popular": {
+        target: "http://data4library.kr",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api\/popular/, "/api/loanItemSrch"),
+      },
     },
   },
 });
