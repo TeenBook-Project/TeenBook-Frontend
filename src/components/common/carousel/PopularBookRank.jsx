@@ -37,7 +37,7 @@ const PopularBookRank = () => {
         setBooks(firstFiveItems);
         console.log("필터링 데이터:", firstFiveItems);
       } catch (error) {
-        console.error("Error loading libraries:", error);
+        console.error("Error loading PopularBooks:", error);
       }
     };
 

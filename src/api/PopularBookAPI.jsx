@@ -7,6 +7,6 @@ export const fetchPopularBooksAPI = async () => {
     console.log("인기도서대출 데이터:", response.data);
     return response.data;
   } catch (error) {
-    console.log("Failed to fetch Books:", error);
+    console.log("Failed to fetch PopularBooks:", error);
   }
 };
