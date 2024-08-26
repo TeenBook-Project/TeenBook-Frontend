@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { LuShoppingBag } from "react-icons/lu";
 import img from "../../assets/짱구.jpg";
+import { Link } from "react-router-dom";
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
@@ -27,7 +28,9 @@ const Header = () => {
         <img src={img} alt="" />
         <p>신짱구</p>
       </div>
-      <LuShoppingBag size={20} />
+      <Link to="/Shop">
+        <LuShoppingBag size={20} />
+      </Link>
     </Container>
   );
 };
