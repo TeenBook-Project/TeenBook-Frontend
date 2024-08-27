@@ -34,7 +34,7 @@ const Maps = () => {
   useEffect(() => {
     const loadLibraries = async () => {
       try {
-        const data = await fetchLibraries();
+        const data = await fetchLibraries("/api/library");
         console.log("Fetched data:", data);
         if (
           data &&
