@@ -105,7 +105,7 @@ const Bottom = styled.div`
 const Loan = () => {
   const camera = useRef(null);
   const [image, setImage] = useState(null);
-  const [facingMode, setFacingMode] = useState("environment");
+  const [mode, setMode] = useState("environment");
   const navigate = useNavigate();
 
   const takePhoto = () => {
@@ -117,9 +117,10 @@ const Loan = () => {
   };
 
   const toggleCamera = () => {
-    setFacingMode((prevMode) =>
+    setMode((prevMode) =>
       prevMode === "environment" ? "user" : "environment"
     );
+    console.log(facingMode);
   };
   return (
     <Container className="form-container">
@@ -130,11 +131,7 @@ const Loan = () => {
             뒤로가기
           </button>
           <button onClick={toggleCamera}>
-            {facingMode === "environment" ? (
-              <MdCameraswitch color="white" size={25} />
-            ) : (
-              <MdCameraswitch color="white" size={25} />
-            )}
+            <MdCameraswitch color="white" size={25} />
           </button>
         </div>
         <p>대출인증</p>
@@ -142,7 +139,7 @@ const Loan = () => {
       </Header>
 
       <CameraContainer className="camera-container">
-        <Camera ref={camera} className="camera" facingMode={facingMode} />
+        <Camera ref={camera} className="camera" facingMode={mode} />
       </CameraContainer>
 
       <Bottom>
