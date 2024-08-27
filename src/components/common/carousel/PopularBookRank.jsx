@@ -31,7 +31,8 @@ const PopularBookRank = () => {
   useEffect(() => {
     const loadLibraries = async () => {
       try {
-        const data = await fetchPopularBooksAPI();
+        const res = await fetch("/api/popular");
+        const data = await res.json();
         const filteredData = removeDuplicates(data.response.docs);
         const firstFiveItems = filteredData.slice(0, 5);
         setBooks(firstFiveItems);

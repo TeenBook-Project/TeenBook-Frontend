@@ -33,16 +33,29 @@ const Maps = () => {
 
   useEffect(() => {
     const loadLibraries = async () => {
-      try {
-        const res = await fetchLibraries("/api/library");
-        const data = await res.json();
-        console.log("도서관 위치:", data);
+      //   try {
+      //     const res = await fetchLibraries("/api/library");
+      //     const data = await res.json();
+      //     console.log("도서관 위치:", data);
 
-        setLibraries(data.SeoulPublicLibraryInfo.row || []);
+      //     setLibraries(data.SeoulPublicLibraryInfo.row || []);
+      //   } catch (error) {
+      //     console.error("Error loading libraries:", error);
+      //   }
+      // };
+      try {
+        const res = await fetch("/api/library");
+        const res2 = await fetch("/api/popular");
+        const data = await res.json();
+        const data2 = await res2.json();
+        console.log(data, "도서관 위치");
+        console.log(data2, "인기있는 도서");
       } catch (error) {
-        console.error("Error loading libraries:", error);
+        console.error("Error fetching data:", error);
       }
     };
+
+    loadLibraries();
 
     loadLibraries();
 
