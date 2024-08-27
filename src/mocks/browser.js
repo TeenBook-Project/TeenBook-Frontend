@@ -1,5 +1,5 @@
-import { setupWorker } from "msw/browser";
-import { handlers } from "./handlers";
+// import { setupWorker } from "msw/browser";
+// import { handlers } from "./handlers";
 // import { http } from "msw";
 // const worker = setupWorker(
 //   // 가짜 API 엔드포인트 설정
@@ -14,4 +14,4 @@ import { handlers } from "./handlers";
 // );
 
 // export default worker;
-export const worker = setupWorker(...handlers);
+// export const worker = setupWorker(...handlers);
