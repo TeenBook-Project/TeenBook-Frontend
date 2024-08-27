@@ -1,24 +1,34 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { fetchLibraries } from "../api/LibraryAPI";
+import { fetchTrendBooks } from "../api/TrendAPI";
 const LibraryData = () => {
   const [libraries, setLibraries] = useState([]);
 
   useEffect(() => {
-    const loadLibraries = async () => {
+    // const loadLibraries = async () => {
+    //   try {
+    //     const res = await fetch("/api/library");
+    //     const res2 = await fetch("/api/popular");
+    //     const data = await res.json();
+    //     const data2 = await res2.json();
+    //     console.log(data, "도서관 위치");
+    //     console.log(data2, "인기있는 도서");
+    //   } catch (error) {
+    //     console.error("Error fetching data:", error);
+    //   }
+    // };
+
+    // loadLibraries();
+    const Books = async () => {
       try {
-        const res = await fetch("/api/library");
-        const res2 = await fetch("/api/popular");
-        const data = await res.json();
-        const data2 = await res2.json();
-        console.log(data, "도서관 위치");
-        console.log(data2, "인기있는 도서");
+        const data = await fetchTrendBooks();
+        console.log("급상승", data);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.log("error", error);
       }
     };
-
-    loadLibraries();
+    Books();
   }, []);
 
   return (

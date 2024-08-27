@@ -57,6 +57,11 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
       },
+      "/teenbook-api": {
+        target: "https://api.teenbook.click",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/teenbook-api/, ""),
+      },
     },
   },
   build: {

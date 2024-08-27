@@ -65,7 +65,7 @@ const KakaoLogin = () => {
       };
       console.log("데이터:", userData);
       navigate("/Home");
-      const result = await fetch(`${BASE_URL}/user/login`, {
+      const result = await fetch(`/teenbook-api/user/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
