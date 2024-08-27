@@ -4,14 +4,14 @@
       "id": 1,
       "name": "스타벅스 아메리카노",
       "price": "4,500",
-      "img": "/src/assets/스타벅스아메리카노.jpg",
+      "img": "/스타벅스아메리카노.jpg",
       "level": "레벨 1 이상"
     },
     {
       "id": 2,
       "name": "투썸플레이스 카페라떼",
       "price": "5,000",
-      "img": "/src/assets/투썸카페라떼.jpg",
+      "img": "/투썸카페라떼.jpg",
       "level": "레벨 1 이상"
     },
     {
@@ -25,21 +25,21 @@
       "id": 4,
       "name": "스타벅스 오늘도 달콤하게",
       "price": "10,200",
-      "img": "/src/assets/스타벅스.jpg",
+      "img": "/스타벅스.jpg",
       "level": "레벨 2 이상"
     },
     {
       "id": 5,
       "name": "피자헛 페페로니피자",
       "price": "23,200",
-      "img": "/src/assets/피자헛.jpg",
+      "img": "/피자헛.jpg",
       "level": "레벨 3 이상"
     },
     {
       "id": 6,
       "name": "맘스터치 강정콤보 ",
       "price": "17,900",
-      "img": "/src/assets/맘스터치강정콤보.jpg",
+      "img": "/맘스터치강정콤보.jpg",
       "level": "레벨 3 이상"
     }
   ]
