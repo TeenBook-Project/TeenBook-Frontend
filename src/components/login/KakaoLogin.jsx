@@ -64,6 +64,7 @@ const KakaoLogin = () => {
       };
       console.log("데이터:", userData);
       navigate("/Home");
+      //api
       const result = await fetch("/api/v1/user/login", {
         method: "POST",
         headers: {
