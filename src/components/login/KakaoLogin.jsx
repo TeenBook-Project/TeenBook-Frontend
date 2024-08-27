@@ -4,13 +4,14 @@ import { HiMiniChatBubbleOvalLeft } from "react-icons/hi2";
 
 import styled from "styled-components";
 const K_JS_API_KEY = import.meta.env.VITE_K_JS_API_KEY;
-const API_URL =
-  import.meta.env.MODE === "development"
-    ? import.meta.env.VITE_DEVELOP_API_URL
-    : import.meta.env.VITE_API_URL;
+// const API_URL =
+//   import.meta.env.MODE === "development"
+//     ? import.meta.env.VITE_DEVELOP_API_URL
+//     : import.meta.env.VITE_API_URL;
 
-console.log("API URL:", API_URL);
-console.log("Current environment:", import.meta.env.MODE);
+// console.log("API URL:", API_URL);
+// console.log("Current environment:", import.meta.env.MODE);
+const BASE_URL = import.meta.env.VITE_BACK_URL;
 
 const KAKAO = styled.button`
   display: flex;
@@ -64,7 +65,7 @@ const KakaoLogin = () => {
       };
       console.log("데이터:", userData);
       navigate("/Home");
-      const result = await fetch("/auth", {
+      const result = await fetch(`${BASE_URL}/user/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

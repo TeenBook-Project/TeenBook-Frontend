@@ -31,8 +31,7 @@ const PopularBookRank = () => {
   useEffect(() => {
     const loadLibraries = async () => {
       try {
-        const res = await fetch("/api/popular");
-        const data = await res.json();
+        const data = await fetchPopularBooksAPI();
         const filteredData = removeDuplicates(data.response.docs);
         const firstFiveItems = filteredData.slice(0, 5);
         setBooks(firstFiveItems);
@@ -40,6 +39,16 @@ const PopularBookRank = () => {
       } catch (error) {
         console.error("Error loading PopularBooks:", error);
       }
+      // try {
+      //   const res = await fetch("/api/popular");
+      //   const data = await res.json();
+      //   const filteredData = removeDuplicates(data.response.docs);
+      //   const firstFiveItems = filteredData.slice(0, 5);
+      //   setBooks(firstFiveItems);
+      //   console.log("필터링 데이터:", firstFiveItems);
+      // } catch (error) {
+      //   console.error("Error loading PopularBooks:", error);
+      // }
     };
 
     loadLibraries();

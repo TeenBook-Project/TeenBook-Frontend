@@ -31,27 +31,26 @@ const Maps = ({ updateButtonText }) => {
 
   useEffect(() => {
     const loadLibraries = async () => {
-      //   try {
-      //     const res = await fetch("/api/library");
-      //     const data = await res.json();
-      //     console.log("인기 대출 도서:", data);
-
-      //     setLibraries(data.SeoulPublicLibraryInfo.row);
-      //   } catch (error) {
-      //     console.error("Error loading libraries:", error);
-      //   }
-      // };
-
-      // loadLibraries();
       try {
-        const res = await fetch("/api/library");
-        const data = await res.json();
-        console.log(data, "도서관 위치");
+        const data = await fetchLibraries();
+        console.log("인기 대출 도서:", data);
+
         setLibraries(data.SeoulPublicLibraryInfo.row);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Error loading libraries:", error);
       }
     };
+
+    loadLibraries();
+    //   try {
+    //     const res = await fetch("/api/library");
+    //     const data = await res.json();
+    //     console.log(data, "도서관 위치");
+    //     setLibraries(data.SeoulPublicLibraryInfo.row);
+    //   } catch (error) {
+    //     console.error("Error fetching data:", error);
+    //   }
+    // };
 
     loadLibraries();
 
