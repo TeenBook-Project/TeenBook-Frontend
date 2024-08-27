@@ -34,19 +34,11 @@ const Maps = () => {
   useEffect(() => {
     const loadLibraries = async () => {
       try {
-        const data = await fetchLibraries("/api/library");
-        console.log("Fetched data:", data);
-        if (
-          data &&
-          data.SeoulPublicLibraryInfo &&
-          data.SeoulPublicLibraryInfo.row
-        ) {
-          setLibraries(data.SeoulPublicLibraryInfo.row);
-        } else {
-          console.error("Invalid data structure:", data);
-          setLibraries([]); // 빈 배열로 설정하여 오류 방지
-        }
-        // setLibraries(data.SeoulPublicLibraryInfo.row || []);
+        const res = await fetchLibraries("/api/library");
+        const data = await res.json();
+        console.log("도서관 위치:", data);
+
+        setLibraries(data.SeoulPublicLibraryInfo.row || []);
       } catch (error) {
         console.error("Error loading libraries:", error);
       }

@@ -32,7 +32,10 @@ const Maps = ({ updateButtonText }) => {
   useEffect(() => {
     const loadLibraries = async () => {
       try {
-        const data = await fetchLibraries();
+        const res = await fetch("/api/popular");
+        const data = await res.json();
+        console.log("인기 대출 도서:", data);
+
         setLibraries(data.SeoulPublicLibraryInfo.row);
       } catch (error) {
         console.error("Error loading libraries:", error);
