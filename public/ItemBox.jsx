@@ -18,6 +18,7 @@ const ItemContainer = styled.div`
   }
   .content {
     display: flex;
+    justify-content: space-between;
     .left {
       display: flex;
       flex-direction: column;
