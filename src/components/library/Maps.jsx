@@ -45,11 +45,9 @@ const Maps = () => {
       // };
       try {
         const res = await fetch("/api/library");
-        const res2 = await fetch("/api/popular");
         const data = await res.json();
-        const data2 = await res2.json();
         console.log(data, "도서관 위치");
-        console.log(data2, "인기있는 도서");
+        setLibraries(data.SeoulPublicLibraryInfo.row || []);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
