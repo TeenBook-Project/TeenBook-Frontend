@@ -117,12 +117,18 @@ const Loan = () => {
     }
   };
 
+  // const toggleCamera = () => {
+  //   setMode((prevMode) =>
+  //     prevMode === "environment" ? "user" : "environment"
+  //   );
+  //   setCameraKey((prevKey) => prevKey + 1);
+  // };
   const toggleCamera = () => {
-    setMode((prevMode) =>
-      prevMode === "environment" ? "user" : "environment"
-    );
-    setCameraKey((prevKey) => prevKey + 1);
+    if (camera.current) {
+      camera.current.switchCamera();
+    }
   };
+
   return (
     <Container className="form-container">
       <Header>
@@ -140,12 +146,7 @@ const Loan = () => {
       </Header>
 
       <CameraContainer className="camera-container">
-        <Camera
-          key={cameraKey}
-          ref={camera}
-          className="camera"
-          facingMode={mode}
-        />
+        <Camera facingMode="environment" ref={camera} className="camera" />
       </CameraContainer>
 
       <Bottom>
