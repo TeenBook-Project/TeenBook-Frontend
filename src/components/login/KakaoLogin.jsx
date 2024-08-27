@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
+import { useRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
 import { HiMiniChatBubbleOvalLeft } from "react-icons/hi2";
-
+import { PostUser } from "../../api/UserAPI";
 import styled from "styled-components";
+import { signInState } from "../../recoil/SignInAotm";
 const K_JS_API_KEY = import.meta.env.VITE_K_JS_API_KEY;
 // const API_URL =
 //   import.meta.env.MODE === "development"
@@ -11,7 +13,6 @@ const K_JS_API_KEY = import.meta.env.VITE_K_JS_API_KEY;
 
 // console.log("API URL:", API_URL);
 // console.log("Current environment:", import.meta.env.MODE);
-const BASE_URL = import.meta.env.VITE_BACK_URL;
 
 const KAKAO = styled.button`
   display: flex;
@@ -31,6 +32,7 @@ const KAKAO = styled.button`
 `;
 
 const KakaoLogin = () => {
+  const [signIn, setSignIn] = useRecoilState(signInState);
   const navigate = useNavigate();
   useEffect(() => {
     // 카카오 SDK 초기화
@@ -58,23 +60,15 @@ const KakaoLogin = () => {
       const { id, kakao_account } = response;
       const { profile } = kakao_account;
 
+      const userId = id.toString();
       const userData = {
-        userId: id,
+        userId: userId,
         userName: profile.nickname,
         profile: profile.profile_image_url,
       };
       console.log("데이터:", userData);
-      navigate("/Home");
-      const result = await fetch(`/teenbook-api/user/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userData),
-      });
 
-      const data = await result.json();
-      console.log("Success:", data);
+      await PostUser(userData, navigate, setSignIn);
     } catch (error) {
       console.error("Error:", error);
     }

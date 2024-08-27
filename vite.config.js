@@ -64,12 +64,12 @@ export default defineConfig({
       },
     },
   },
-  build: {
-    rollupOptions: {
-      input: {
-        main: "./index.html",
-        sw: "./sw.js",
-      },
-    },
-  },
+  // build: {
+  //   rollupOptions: {
+  //     input: {
+  //       main: "./index.html",
+  //       sw: "./sw.js",
+  //     },
+  //   },
+  // },
 });
