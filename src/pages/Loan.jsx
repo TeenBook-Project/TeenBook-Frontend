@@ -106,6 +106,7 @@ const Loan = () => {
   const camera = useRef(null);
   const [image, setImage] = useState(null);
   const [mode, setMode] = useState("environment");
+  const [cameraKey, setCameraKey] = useState(0);
   const navigate = useNavigate();
 
   const takePhoto = () => {
@@ -120,7 +121,7 @@ const Loan = () => {
     setMode((prevMode) =>
       prevMode === "environment" ? "user" : "environment"
     );
-    console.log(facingMode);
+    setCameraKey((prevKey) => prevKey + 1);
   };
   return (
     <Container className="form-container">
@@ -139,7 +140,12 @@ const Loan = () => {
       </Header>
 
       <CameraContainer className="camera-container">
-        <Camera ref={camera} className="camera" facingMode={mode} />
+        <Camera
+          key={cameraKey}
+          ref={camera}
+          className="camera"
+          facingMode={mode}
+        />
       </CameraContainer>
 
       <Bottom>
