@@ -15,11 +15,11 @@ export const PostUser = async (userData, navigate, setSignIn) => {
       navigate("/Home");
       setSignIn(true);
 
-      console.log(response.data);
-      sessionStorage.setItem("user", JSON.stringify(response.data.userId));
+      console.log("로그인 성공 결과값", response.data);
+      // sessionStorage.setItem("loginUser", JSON.stringify(response.data.userId));
       console.log("로그인성공");
     }
-    if (response.status === 500) {
+    if (response.status === 400) {
       console.log("로그인 실패");
     }
   } catch (error) {
@@ -28,11 +28,13 @@ export const PostUser = async (userData, navigate, setSignIn) => {
   }
 };
 //로그아웃
-export const Logout = async () => {
+export const Logout = async (navigate, setSignIn) => {
   try {
-    const response = await axios.get("teenbook-api//user/logout");
+    const response = await axios.get("teenbook-api/user/logout");
     if (response.status === 200) {
       console.log("로그아웃 성공");
+      navigate("/");
+      setSignIn(false);
     }
   } catch (error) {
     console.log("error logout", error);
@@ -41,7 +43,7 @@ export const Logout = async () => {
 //user 정보 가져오는 api
 export const FetchUser = async () => {
   try {
-    const response = await axios.get("teenbook-api/user/");
+    const response = await axios.get("teenbook-api/user/count");
     console.log("유저데이터", response.data);
     return response.data;
   } catch (error) {

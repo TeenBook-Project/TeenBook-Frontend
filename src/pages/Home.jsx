@@ -60,30 +60,32 @@ const TabContent = styled.div`
   margin: 0 20px;
 `;
 const Menu = styled.div`
-  display: flex;
+  /* display: flex;
   justify-content: space-around;
-  margin: 20px 10px;
+  margin: 20px 10px; */
 
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px;
+  margin: 20px;
   .button-box {
-    width: 170px;
-    height: 120px;
     padding: 15px;
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
-    font-size: 16px;
+    font-size: 17px;
     font-weight: bold;
     text-decoration: none;
 
     .content {
       display: flex;
-
       justify-content: space-between;
-      font-size: 7px;
+      font-size: 10px;
       font-weight: 500;
+      line-height: 13px;
       color: #b1b1b1;
-      margin-top: 5px;
+      margin-top: 8px;
       p {
       }
     }

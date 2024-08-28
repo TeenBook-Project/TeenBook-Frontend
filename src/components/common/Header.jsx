@@ -4,10 +4,11 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { LuShoppingBag } from "react-icons/lu";
 import img from "../../assets/짱구.jpg";
 import { Link } from "react-router-dom";
-import { signInState } from "../../recoil/SignInAotm";
+import { SignInState } from "../../recoil/SignInAotm";
 import { MdLogout } from "react-icons/md";
 import { FetchUser, Logout } from "../../api/UserAPI";
-
+import { UserAtom } from "../../recoil/UserAtom";
+import { useNavigate } from "react-router-dom";
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
@@ -19,10 +20,10 @@ const Container = styled.div`
 
     font-weight: bold;
     img {
-      width: 30px;
-      height: 30px;
+      width: 35px;
+      height: 35px;
       border-radius: 70%;
-      margin-right: 20px;
+      margin-right: 15px;
     }
   }
   .right {
@@ -34,24 +35,26 @@ const Container = styled.div`
   }
 `;
 const Header = () => {
-  const [signIn, setSignIn] = useRecoilState(signInState);
-  const [user, setUser] = useState();
+  const [signIn, setSignIn] = useRecoilState(SignInState);
+  const [user, setUser] = useState([]);
+  const navigate = useNavigate();
+
+  // const user = useRecoilValue(UserAtom);
   useEffect(() => {
-    const loadBooks = async () => {
+    const loadUser = async () => {
       try {
         const data = await FetchUser();
-        console.log("내정보", data);
-        setUser(data);
+        setUser(data.result[0]);
       } catch (error) {
         console.log("error", error);
       }
     };
-    loadBooks();
+    loadUser();
   }, []);
 
   const handlelogout = async () => {
     try {
-      await Logout(setSignIn);
+      await Logout(navigate, setSignIn);
     } catch (error) {
       console.log("logout error", error);
     }
@@ -59,8 +62,8 @@ const Header = () => {
   return (
     <Container>
       <div className="left">
-        <img src={img} alt="" />
-        <p>신짱구</p>
+        <img src={user.profile} alt="" />
+        <p>{user.userName}</p>
       </div>
       <div className="right">
         {!signIn ? (

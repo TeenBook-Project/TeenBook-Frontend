@@ -53,17 +53,21 @@ const Container = styled.div`
     }
   }
 `;
-const Visit = () => {
+const Visit = ({ stats }) => {
   return (
     <Container>
       <div className="title">이번 달 도서관 방문 수</div>
       <div className="content">
-        <CircularProgressbar value={10} className="graph" strokeWidth={25} />
+        <CircularProgressbar
+          value={stats.thisMounth_Ai_p}
+          className="graph"
+          strokeWidth={25}
+        />
         <div className="text">
-          <p>3번 방문</p>
+          <p>{stats.thisMounth_Ai}번 방문</p>
           <div>
             <span>이번 달 </span>
-            <span>10%</span>
+            <span>{stats.thisMounth_Ai_p}%</span>
             <span> 도서관에 방문했어요</span>
           </div>
         </div>

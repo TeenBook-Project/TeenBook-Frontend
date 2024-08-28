@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { IoChevronBack } from "react-icons/io5";
 import { FaCircle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { PostLoan } from "../api/LoanAPI.JSX";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -103,11 +104,19 @@ const Loan = () => {
   const [image, setImage] = useState(null);
   const navigate = useNavigate();
 
-  const takePhoto = () => {
-    if (camera.current) {
-      const photo = camera.current.takePhoto();
-      setImage(photo);
+  // const takePhoto = () => {
+  //   if (camera.current) {
+  //     const photo = camera.current.takePhoto();
+  //     setImage(photo);
+  //     alert("인증이 완료되었습니다.");
+  //   }
+  // };
+  const handleLoanClick = async () => {
+    try {
+      await PostLoan(navigate);
       alert("인증이 완료되었습니다.");
+    } catch (error) {
+      console.log("error", error);
     }
   };
   return (
@@ -126,7 +135,7 @@ const Loan = () => {
       </CameraContainer>
 
       <Bottom>
-        <button onClick={takePhoto}>
+        <button onClick={handleLoanClick}>
           <FaCircle size={50} color="white" />
         </button>
 

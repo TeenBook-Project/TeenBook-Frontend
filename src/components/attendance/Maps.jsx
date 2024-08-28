@@ -3,6 +3,8 @@ import { Map, MapMarker, MarkerClusterer, Circle } from "react-kakao-maps-sdk";
 import CurrentMarker from "../../assets/MyMarker.png";
 import LabraryMarker from "../../assets/LibraryMarker.png";
 import { fetchLibraries } from "../../api/LibraryAPI";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { LibraryAtom } from "../../recoil/LibraryAtom";
 // 좌표 간 거리를 계산하는 함수 (단위: 미터)
 const calculateDistance = (lat1, lng1, lat2, lng2) => {
   const R = 6371e3; // 지구 반지름 (미터)
@@ -25,23 +27,11 @@ const Maps = ({ updateButtonText }) => {
   const [selectedMarker, setSelectedMarker] = useState(null);
   const [currentPosition, setCurrentPosition] = useState(null);
   const [mapLevel, setMapLevel] = useState(10);
-
+  const library = useRecoilValue(LibraryAtom);
   // 필터링을 위한 거리 제한 (예: 500미터)
   const distanceLimit = 3000; // 500미터 이내의 도서관만 표시
 
   useEffect(() => {
-    const loadLibraries = async () => {
-      try {
-        const data = await fetchLibraries();
-        console.log("인기 대출 도서:", data);
-
-        setLibraries(data.SeoulPublicLibraryInfo.row);
-      } catch (error) {
-        console.error("Error loading libraries:", error);
-      }
-    };
-
-    loadLibraries();
     //   try {
     //     const res = await fetch("/api/library");
     //     const data = await res.json();
@@ -52,7 +42,7 @@ const Maps = ({ updateButtonText }) => {
     //   }
     // };
 
-    loadLibraries();
+    // loadLibraries();
 
     // 테스트용으로 서울의 좌표를 현재 위치로 설정
     //50m in
@@ -61,9 +51,13 @@ const Maps = ({ updateButtonText }) => {
     //   lng: 127.044192,
     // });
     //50m out
+    // setCurrentPosition({
+    //   lat: 37.6874124,
+    //   lng: 127.0448595,
+    // });
     setCurrentPosition({
-      lat: 37.6874124,
-      lng: 127.0448595,
+      lat: 37.4964968,
+      lng: 127.0320274,
     });
 
     // 사용자 현재 위치 가져오기
@@ -83,15 +77,15 @@ const Maps = ({ updateButtonText }) => {
   }, []);
 
   useEffect(() => {
-    if (currentPosition && libraries.length > 0) {
-      const nearLibrary = libraries.some((lib) => {
+    if (currentPosition && library.length > 0) {
+      const nearLibrary = library.some((lib) => {
         const distance = calculateDistance(
           currentPosition.lat,
           currentPosition.lng,
           lib.XCNTS,
           lib.YDNTS
         );
-        return distance < 50; // 50미터 이내에 있는지 확인
+        return distance < 100; // 50미터 이내에 있는지 확인
       });
 
       if (nearLibrary) {
@@ -102,10 +96,10 @@ const Maps = ({ updateButtonText }) => {
     } else {
       updateButtonText("");
     }
-  }, [currentPosition, libraries, updateButtonText]);
+  }, [currentPosition, library, updateButtonText]);
 
   // 가까운 도서관만 필터링하는 함수
-  const filteredLibraries = libraries.filter((lib) => {
+  const filteredLibraries = library.filter((lib) => {
     if (!currentPosition) return false;
     const distance = calculateDistance(
       currentPosition.lat,
@@ -133,7 +127,7 @@ const Maps = ({ updateButtonText }) => {
         onZoomChanged={(map) => setMapLevel(map.getLevel())}
       >
         <MarkerClusterer averageCenter={true} minLevel={10}>
-          {filteredLibraries.map((lib) => (
+          {library.map((lib) => (
             <div key={lib.LBRRY_SEQ_NO}>
               <MapMarker
                 position={{ lat: lib.XCNTS, lng: lib.YDNTS }}
@@ -146,7 +140,7 @@ const Maps = ({ updateButtonText }) => {
                     lat: lib.XCNTS,
                     lng: lib.YDNTS,
                   }}
-                  radius={50}
+                  radius={100}
                   strokeWeight={1} // 선의 두께
                   strokeColor={"#5479EE"} // 선의 색깔
                   strokeOpacity={1} // 선의 불투명도

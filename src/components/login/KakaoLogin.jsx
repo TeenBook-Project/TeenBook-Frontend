@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { HiMiniChatBubbleOvalLeft } from "react-icons/hi2";
 import { PostUser } from "../../api/UserAPI";
 import styled from "styled-components";
-import { signInState } from "../../recoil/SignInAotm";
+import { SignInState } from "../../recoil/SignInAotm";
+import { UserAtom } from "../../recoil/UserAtom";
 const K_JS_API_KEY = import.meta.env.VITE_K_JS_API_KEY;
 // const API_URL =
 //   import.meta.env.MODE === "development"
@@ -32,7 +33,8 @@ const KAKAO = styled.button`
 `;
 
 const KakaoLogin = () => {
-  const [signIn, setSignIn] = useRecoilState(signInState);
+  const [signIn, setSignIn] = useRecoilState(SignInState);
+  const [user, setUser] = useRecoilState(UserAtom);
   const navigate = useNavigate();
   useEffect(() => {
     // 카카오 SDK 초기화
@@ -67,8 +69,8 @@ const KakaoLogin = () => {
         profile: profile.profile_image_url,
       };
       console.log("데이터:", userData);
-
       await PostUser(userData, navigate, setSignIn);
+      setUser(userData);
     } catch (error) {
       console.error("Error:", error);
     }

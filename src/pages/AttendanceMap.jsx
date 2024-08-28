@@ -4,6 +4,9 @@ import styled from "styled-components";
 import { IoChevronBack } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import Maps from "../components/attendance/Maps";
+import { PostAttendance } from "../api/AttendanceAPI";
+import { useRecoilState } from "recoil";
+import { LibraryAtom } from "../recoil/LibraryAtom";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -65,12 +68,16 @@ const MapContainer = styled.div`
 const AttendanceMap = () => {
   const [buttonText, setButtonText] = useState("");
   const [buttonDisabled, setButtonDisabled] = useState(false);
+  const [library, setLibrary] = useRecoilState(LibraryAtom);
   const navigate = useNavigate();
-
-  const onClickBtn = () => {
+  const LibraryData = {
+    bookNO: library.LBRRY_SEQ_NO,
+  };
+  const onClickBtn = async () => {
     // 버튼이 비활성화 상태일 때는 클릭하지 못하도록
     if (!buttonDisabled) {
       // 출석하기 버튼 클릭 시 동작할 내용
+      await PostAttendance(navigate, LibraryData);
     }
   };
 

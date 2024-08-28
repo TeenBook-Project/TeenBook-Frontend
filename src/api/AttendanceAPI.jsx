@@ -1,17 +1,23 @@
 import axios from "axios";
 //출석하기
-export const PostUser = async (bookNO) => {
+export const PostAttendance = async (navigate, bookNO) => {
   try {
     const json = JSON.stringify(bookNO);
-    console.log("bookNO:", json);
     const response = await axios.post("teenbook-api/attendance_info", json, {
       headers: {
         "Content-Type": "application/json",
       },
     });
     if (response.status === 200) {
-      console.log(response.data);
-      console.log("출석하기 성공");
+      if (response.data.success === true) {
+        alert("출석하기를 완료했습니다."); // 출석 성공 시 알림
+        navigate("/Home");
+        console.log(response);
+      } else {
+        console.log(response);
+        alert("하루에 한번만 출석할 수 있습니다."); // 이미 출석했을 때 알림
+        navigate(-1);
+      }
     }
     if (response.status === 400) {
       console.log("출석하기 실패");

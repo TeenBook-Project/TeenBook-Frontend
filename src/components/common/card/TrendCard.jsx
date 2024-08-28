@@ -65,6 +65,7 @@ const Content = styled.div`
 
   .author {
     font-size: 0.7rem;
+    line-height: 1rem;
     color: black;
     margin-bottom: 10px;
   }
