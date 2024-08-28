@@ -79,6 +79,7 @@ const LibraryInfo = styled.div`
 const InfoModal = ({ isOpen, onClose, library }) => {
   const [favoritItem, setFavoritItem] = useRecoilState(FavoritAtom);
   if (!isOpen) return null;
+
   //이미 존재하는 도서관은 추가x
   const isAlreadyInFavorit = favoritItem.filter(
     (e) => e.LBRRY_SEQ_NO === library.LBRRY_SEQ_NO

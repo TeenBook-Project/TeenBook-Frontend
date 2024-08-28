@@ -3,9 +3,8 @@ import { Map, MapMarker, MarkerClusterer, Circle } from "react-kakao-maps-sdk";
 import CurrentMarker from "../../assets/MyMarker.png";
 import LabraryMarker from "../../assets/LibraryMarker.png";
 import { fetchLibraries } from "../../api/LibraryAPI";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { LibraryAtom } from "../../recoil/LibraryAtom";
-// 좌표 간 거리를 계산하는 함수 (단위: 미터)
+
+// 거리 계산 함수
 const calculateDistance = (lat1, lng1, lat2, lng2) => {
   const R = 6371e3; // 지구 반지름 (미터)
   const rad = (deg) => (deg * Math.PI) / 180;
@@ -22,96 +21,57 @@ const calculateDistance = (lat1, lng1, lat2, lng2) => {
   return R * c; // 거리 (미터)
 };
 
-const Maps = ({ updateButtonText }) => {
+const Maps = ({ updateButtonText, setSelectedLibrary }) => {
   const [libraries, setLibraries] = useState([]);
-  const [selectedMarker, setSelectedMarker] = useState(null);
   const [currentPosition, setCurrentPosition] = useState(null);
   const [mapLevel, setMapLevel] = useState(10);
-  const library = useRecoilValue(LibraryAtom);
-  // 필터링을 위한 거리 제한 (예: 500미터)
-  const distanceLimit = 3000; // 500미터 이내의 도서관만 표시
 
   useEffect(() => {
-    //   try {
-    //     const res = await fetch("/api/library");
-    //     const data = await res.json();
-    //     console.log(data, "도서관 위치");
-    //     setLibraries(data.SeoulPublicLibraryInfo.row);
-    //   } catch (error) {
-    //     console.error("Error fetching data:", error);
-    //   }
-    // };
-
-    // loadLibraries();
-
-    // 테스트용으로 서울의 좌표를 현재 위치로 설정
-    //50m in
-    // setCurrentPosition({
-    //   lat: 37.6874291,
-    //   lng: 127.044192,
-    // });
-    //50m out
-    // setCurrentPosition({
-    //   lat: 37.6874124,
-    //   lng: 127.0448595,
-    // });
-    setCurrentPosition({
-      lat: 37.4964968,
-      lng: 127.0320274,
-    });
-
-    // 사용자 현재 위치 가져오기
-    /*
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        setCurrentPosition({
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        });
-      },
-      (error) => {
-        console.error("Error getting current position:", error);
+    const loadLibraries = async () => {
+      try {
+        const data = await fetchLibraries();
+        setLibraries(data.SeoulPublicLibraryInfo.row);
+      } catch (error) {
+        console.error("Error loading libraries:", error);
       }
-    );
-    */
+    };
+
+    loadLibraries();
+
+    // 사용자의 현재 위치 설정 (테스트용, 실제 위치 가져오도록 수정 필요)
+    setCurrentPosition({
+      lat: 37.5784572,
+      lng: 126.8139074,
+    });
+    // navigator.geolocation.getCurrentPosition(
+    //   (position) => {
+    //     setCurrentPosition({
+    //       lat: position.coords.latitude,
+    //       lng: position.coords.longitude,
+    //     });
+    //   },
+    //   (error) => {
+    //     console.error("Error getting current position:", error);
+    //   }
+    // );
   }, []);
 
-  useEffect(() => {
-    if (currentPosition && library.length > 0) {
-      const nearLibrary = library.some((lib) => {
-        const distance = calculateDistance(
-          currentPosition.lat,
-          currentPosition.lng,
-          lib.XCNTS,
-          lib.YDNTS
-        );
-        return distance < 100; // 50미터 이내에 있는지 확인
-      });
-
-      if (nearLibrary) {
-        updateButtonText("도서관에 도착했습니다!", false);
-      } else {
-        updateButtonText("도서관 근처가 아닙니다.", true);
-      }
-    } else {
-      updateButtonText("");
-    }
-  }, [currentPosition, library, updateButtonText]);
-
-  // 가까운 도서관만 필터링하는 함수
-  const filteredLibraries = library.filter((lib) => {
-    if (!currentPosition) return false;
+  // 마커 클릭 시 선택한 도서관과 거리 확인
+  const handleMarkerClick = (lib) => {
     const distance = calculateDistance(
       currentPosition.lat,
       currentPosition.lng,
       lib.XCNTS,
       lib.YDNTS
     );
-    return distance <= distanceLimit; // distanceLimit 미터 이내의 도서관만 포함
-  });
 
-  const handleMarkerClick = (id) => {
-    setSelectedMarker((prev) => (prev === id ? null : id));
+    if (distance < 100) {
+      setSelectedLibrary(lib); // 선택된 도서관 저장
+      updateButtonText("도서관에 도착했습니다!", false); // 버튼 활성화
+    } else {
+      setSelectedLibrary(null); // 선택된 도서관 해제
+      updateButtonText("선택한 도서관이 너무 멀리 있습니다.", true); // 버튼 비활성화
+    }
   };
 
   return (
@@ -127,14 +87,15 @@ const Maps = ({ updateButtonText }) => {
         onZoomChanged={(map) => setMapLevel(map.getLevel())}
       >
         <MarkerClusterer averageCenter={true} minLevel={10}>
-          {library.map((lib) => (
+          {libraries.map((lib) => (
             <div key={lib.LBRRY_SEQ_NO}>
               <MapMarker
                 position={{ lat: lib.XCNTS, lng: lib.YDNTS }}
                 clickable={true}
                 image={{ src: LabraryMarker, size: { width: 32, height: 40 } }}
+                onClick={() => handleMarkerClick(lib)}
               ></MapMarker>
-              {mapLevel <= 4 && (
+              {mapLevel <= 5 && (
                 <Circle
                   center={{
                     lat: lib.XCNTS,
@@ -152,17 +113,16 @@ const Maps = ({ updateButtonText }) => {
             </div>
           ))}
         </MarkerClusterer>
-        {/*현재 위치 표시 */}
-        {currentPosition && mapLevel <= 10 && (
-          <div>
-            <MapMarker
-              position={{ lat: currentPosition.lat, lng: currentPosition.lng }}
-              image={{
-                src: CurrentMarker,
-                size: { width: 20, height: 20 },
-              }}
-            />
-          </div>
+
+        {/* 현재 위치 표시 */}
+        {currentPosition && (
+          <MapMarker
+            position={{ lat: currentPosition.lat, lng: currentPosition.lng }}
+            image={{
+              src: CurrentMarker,
+              size: { width: 20, height: 20 },
+            }}
+          />
         )}
       </Map>
     </div>

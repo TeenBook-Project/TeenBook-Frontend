@@ -1,8 +1,9 @@
 import axios from "axios";
 //출석하기
-export const PostAttendance = async (navigate, bookNO) => {
+export const PostAttendance = async (navigate, LibraryData) => {
   try {
-    const json = JSON.stringify(bookNO);
+    const json = JSON.stringify(LibraryData);
+    console.log(json);
     const response = await axios.post("teenbook-api/attendance_info", json, {
       headers: {
         "Content-Type": "application/json",

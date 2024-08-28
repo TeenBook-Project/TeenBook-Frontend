@@ -53,7 +53,7 @@ const ProgressBarGroup = styled.div`
 `;
 
 const Loans = ({ stats }) => {
-  const adolescentAvg = 5; // 청소년 평균 대출 수
+  const adolescentAvg = stats.average_Bi; // 청소년 평균 대출 수
   const myAvg = stats.thisMounth_Bi; // 나의 대출 수
   // max 값을 청소년 평균과 나의 대출 수 중 큰 값으로 설정
   const maxValue = Math.max(adolescentAvg, myAvg);

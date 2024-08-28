@@ -57,8 +57,6 @@ const Maps = () => {
 
     loadLibraries();
 
-    loadLibraries();
-
     // 테스트용으로 서울의 좌표를 현재 위치로 설정
     setCurrentPosition({
       lat: 37.6876674374375,
