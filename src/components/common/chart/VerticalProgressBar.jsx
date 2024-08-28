@@ -20,6 +20,7 @@ const ProgressBarWrapper = styled.div`
   position: relative;
   display: flex;
   align-items: flex-end;
+  justify-content: center; /* 수평 중앙 정렬 */
 `;
 
 const ProgressBarFill = styled.div`
@@ -27,12 +28,17 @@ const ProgressBarFill = styled.div`
   background-color: ${(props) => props.fillColor};
   height: ${(props) => props.height}%;
   transition: height 0.5s ease-in-out;
+  position: absolute; /* Fill은 Absolute로 설정 */
+  bottom: 0; /* Fill을 아래로 맞춤 */
 `;
 
 const ProgressBarValue = styled.div`
   position: absolute;
   bottom: ${(props) => props.height / 2}%;
-  left: 25%;
+  display: flex;
+  align-items: center; /* 세로 중앙 정렬 */
+  justify-content: center; /* 가로 중앙 정렬 */
+  width: 100%; /* Flexbox가 중앙 정렬을 돕도록 전체 너비 설정 */
   color: white;
   font-size: 0.8rem;
   font-weight: bold;

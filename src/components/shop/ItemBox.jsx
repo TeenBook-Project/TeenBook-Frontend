@@ -37,22 +37,20 @@ const ItemContainer = styled.div`
     }
   }
 `;
-const ItemBox = () => {
-  const [userLevel, setUserLevel] = useState(2);
-  const [userPoint, setUserPoint] = useState(6000);
+const ItemBox = ({ levle, point }) => {
   const navigate = useNavigate();
   const handleClick = (item) => {
     const itemLevel = parseInt(item.level.replace(/[^0-9]/g, ""), 10); // "레벨 1 이상"에서 숫자만 추출
     const itemPrice = parseInt(item.price.replace(/,/g, ""), 10); // "4,500"에서 숫자만 추출
 
-    if (userLevel >= itemLevel && userPoint >= itemPrice) {
+    if (levle >= itemLevel && point >= itemPrice) {
       alert(`${item.name}을(를) 구매완료했습니다.`);
       navigate("/Home");
-    } else if (userLevel < itemLevel) {
+    } else if (levle < itemLevel) {
       alert(
         `레벨이 부족합니다. 이 아이템은 ${item.level} 이상만 구매 가능합니다.`
       );
-    } else if (userPoint < itemPrice) {
+    } else if (point < itemPrice) {
       alert(
         `포인트가 부족합니다. 이 아이템은 ${item.price} 포인트가 필요합니다.`
       );

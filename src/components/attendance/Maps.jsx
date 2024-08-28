@@ -40,8 +40,8 @@ const Maps = ({ updateButtonText, setSelectedLibrary }) => {
 
     // 사용자의 현재 위치 설정 (테스트용, 실제 위치 가져오도록 수정 필요)
     setCurrentPosition({
-      lat: 37.5784572,
-      lng: 126.8139074,
+      lat: 37.5519062,
+      lng: 126.9796763,
     });
     // navigator.geolocation.getCurrentPosition(
     //   (position) => {

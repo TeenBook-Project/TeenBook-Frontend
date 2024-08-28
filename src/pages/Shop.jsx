@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { FaCoins } from "react-icons/fa6";
 import { IoChevronBack } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import ItemBox from "../components/shop/ItemBox";
 import styled from "styled-components";
-
+import { FetchUser } from "../api/UserAPI";
 const Container = styled.div`
   .back-button {
     font-size: 15px;
@@ -38,7 +38,20 @@ const Container = styled.div`
   }
 `;
 const Shop = () => {
+  const [user, setUser] = useState([]);
   const navigate = useNavigate();
+  useEffect(() => {
+    const loadUser = async () => {
+      try {
+        const data = await FetchUser();
+        setUser(data.result[0]);
+      } catch (error) {
+        console.log("error", error);
+      }
+    };
+    loadUser();
+  }, []);
+
   return (
     <Container>
       <button onClick={() => navigate(-1)} className="back-button">
@@ -48,15 +61,15 @@ const Shop = () => {
       <div className="header">
         <div className="left">안전 포인트 샵</div>
         <div className="right">
-          <div>Lv.0</div>
+          <div>Lv.{user.level}</div>
           <div className="point">
-            <div>0</div>
+            <div>{user.point}</div>
             <FaCoins color="gray" />
           </div>
         </div>
       </div>
       <div className="item">
-        <ItemBox />
+        <ItemBox level={user.level} point={user.point} />
       </div>
     </Container>
   );
