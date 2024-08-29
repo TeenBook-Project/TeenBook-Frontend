@@ -31,7 +31,7 @@ export const PostUser = async (userData, navigate, setSignIn) => {
   try {
     const json = JSON.stringify(userData);
     console.log("userData:", json);
-    const response = await axios.post("/teenbook-api/user/login", json, {
+    const response = await axios.post(`${BASE_URL}`, json, {
       headers: {
         "Content-Type": "application/json",
       },

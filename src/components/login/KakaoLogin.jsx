@@ -63,10 +63,10 @@ const KakaoLogin = () => {
         profile: profile.profile_image_url,
       };
       console.log("데이터:", userData);
-      // await PostUser(userData, navigate, setSignIn);
-      // setUser(userData);
-      await axios.post("/api/teenbok-api/proxy", userData);
-      console.log("로그인 성공:", response.data);
+      await PostUser(userData, navigate, setSignIn);
+      setUser(userData);
+      // await axios.post("/api/teenbok-api/proxy", userData);
+      // console.log("로그인 성공:", response.data);
     } catch (error) {
       console.error("Error:", error);
     }
