@@ -4,7 +4,6 @@ import App from "./App.jsx";
 import { BrowserRouter } from "react-router-dom";
 import "./styles/Reset.css";
 import { RecoilRoot } from "recoil";
-// import { worker } from "./mocks/browser.js";
 // if ("serviceWorker" in navigator) {
 //   window.addEventListener("load", () => {
 //     // 서비스 워커의 경로 설정
@@ -22,9 +21,7 @@ import { RecoilRoot } from "recoil";
 //       });
 //   });
 // }
-// if (import.meta.env.MODE === "development") {
-//   worker.start();
-// }
+
 createRoot(document.getElementById("root")).render(
   <RecoilRoot>
     <BrowserRouter>

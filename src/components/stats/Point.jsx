@@ -35,23 +35,24 @@ const Container = styled.div`
     }
   }
 `;
-const Point = () => {
+const Point = ({ stats }) => {
   return (
     <Container>
       <div className="point">
         <p>나의 도서 점수</p>
-        <p>1000P</p>
+        <p>{stats.point}P</p>
       </div>
       <ProgressBar
-        completed={60}
+        maxCompleted={40}
+        completed={stats.exp}
         isLabelVisible={false}
         bgColor="#8367e1"
         height="10px"
       />
       <div className="level">
-        <p>Lv.1</p>
+        <p>Lv.{stats.level}</p>
         <div className="score">
-          <span>10</span>
+          <span>{stats.exp}</span>
           <span>/40</span>
         </div>
       </div>

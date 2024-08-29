@@ -9,6 +9,9 @@ import { MdStars } from "react-icons/md";
 import { useRecoilState } from "recoil";
 import { FavoritAtom } from "../../recoil/FavoritAtom";
 import Event from "../../assets/Event.png";
+import axios from "axios";
+import { DeleteBookMark, PostBookMark } from "../../api/BookMarkAPI";
+
 // 모달을 중앙에 배치하기 위한 오버레이
 const Overlay = styled.div`
   position: fixed;
@@ -29,20 +32,14 @@ const Content = styled.div`
   padding: 20px;
   border-radius: 8px;
   position: relative;
-  max-width: 90vw; // 뷰포트 너비를 초과하지 않도록 설정
-  max-height: 90vh; // 뷰포트 높이를 초과하지 않도록 설정
-  overflow-y: auto; // 내용이 넘칠 경우 스크롤 가능
-  pointer-events: auto; // 모달 내용과 상호작용 가능
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow-y: auto;
+  pointer-events: auto;
 `;
+
 const Button = styled.div`
-  /* display: flex; */
   float: right;
-  /* .favorit-button {
-    &:disabled {
-      background-color: yellow;
-      
-    }
-  } */
 `;
 
 // 도서관 정보 스타일
@@ -79,20 +76,35 @@ const LibraryInfo = styled.div`
 const InfoModal = ({ isOpen, onClose, library }) => {
   const [favoritItem, setFavoritItem] = useRecoilState(FavoritAtom);
   if (!isOpen) return null;
-  //이미 존재하는 도서관은 추가x
-  const isAlreadyInFavorit = favoritItem.filter(
+  console.log(library);
+  const isAlreadyInFavorit = favoritItem.some(
     (e) => e.LBRRY_SEQ_NO === library.LBRRY_SEQ_NO
-  ).length;
+  );
 
-  const toggleFavorit = () => {
-    if (isAlreadyInFavorit) {
-      // 도서관이 즐겨찾기에 있다면 제거
-      setFavoritItem((prev) =>
-        prev.filter((e) => e.LBRRY_SEQ_NO !== library.LBRRY_SEQ_NO)
-      );
-    } else {
-      // 도서관이 즐겨찾기에 없다면 추가
-      setFavoritItem((prev) => [...prev, library]);
+  // 즐겨찾기 추가 및 삭제 함수
+  const toggleFavorit = async () => {
+    const bookData = {
+      LBRRY_SEQ_NO: Number(library.LBRRY_SEQ_NO),
+      LBRRY_NAME: library.LBRRY_NAME,
+      ADRES: library.ADRES,
+      TEL_NO: library.TEL_NO,
+    };
+    try {
+      if (isAlreadyInFavorit) {
+        // 즐겨찾기 삭제
+        await DeleteBookMark(library.LBRRY_NAME);
+        setFavoritItem((prev) =>
+          prev.filter((e) => e.LBRRY_SEQ_NO !== library.LBRRY_SEQ_NO)
+        );
+      } else {
+        // 즐겨찾기 추가
+        await PostBookMark(bookData);
+
+        setFavoritItem((prev) => [...prev, library]);
+      }
+    } catch (error) {
+      console.error("즐겨찾기 변경 중 오류가 발생했습니다:", error);
+      alert("즐겨찾기 변경 중 오류가 발생했습니다. 다시 시도해주세요.");
     }
   };
 
@@ -100,10 +112,7 @@ const InfoModal = ({ isOpen, onClose, library }) => {
     <Overlay onClick={onClose}>
       <Content onClick={(e) => e.stopPropagation()}>
         <Button>
-          <button
-            onClick={toggleFavorit}
-            // disabled={isAlreadyInFavorit}
-          >
+          <button onClick={toggleFavorit}>
             <MdStars size={25} color={isAlreadyInFavorit ? "gold" : "gray"} />
           </button>
           <button className="close-button" onClick={onClose}>

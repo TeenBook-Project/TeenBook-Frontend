@@ -24,23 +24,23 @@ const Container = styled.div`
 
     .text {
       width: 100%;
-      /* margin-left: 20px; */
+      margin-left: 45px;
       text-align: center;
-      /* flex: 1; */
 
       p {
         font-size: 2.1rem;
         margin-bottom: 15px;
         font-weight: 900;
       }
-      .coment {
+      .comment {
         font-size: 0.65rem;
         line-height: 16px;
         color: #b1b1b1;
-      }
+        /* text-align: center; */
 
-      span:nth-child(2) {
-        color: #ed8728;
+        .highlight {
+          color: #ed8728;
+        }
       }
     }
   }
@@ -51,11 +51,32 @@ const ProgressBarGroup = styled.div`
   justify-content: center;
   align-items: flex-end;
 `;
-const adolescentAvg = 5; // 청소년 평균 대출 수
-const myAvg = 7; // 나의 대출 수
-// max 값을 청소년 평균과 나의 대출 수 중 큰 값으로 설정
-const maxValue = Math.max(adolescentAvg, myAvg);
-const Loans = () => {
+
+const Loans = ({ stats }) => {
+  const adolescentAvg = stats.average_Bi; // 청소년 평균 대출 수
+  const myAvg = stats.thisMounth_Bi; // 나의 대출 수
+  // max 값을 청소년 평균과 나의 대출 수 중 큰 값으로 설정
+  const maxValue = Math.max(adolescentAvg, myAvg);
+  let commentText;
+  if (myAvg > adolescentAvg) {
+    commentText = (
+      <>
+        청소년 평균보다{" "}
+        <span className="highlight">{stats.thisMounth_Bi_t}권</span> 더
+        대출했어요
+      </>
+    );
+  } else if (myAvg < adolescentAvg) {
+    commentText = (
+      <>
+        청소년 평균보다{" "}
+        <span className="highlight">{stats.thisMounth_Bi_t}권</span> 덜
+        대출했어요
+      </>
+    );
+  } else {
+    commentText = <>청소년 평균과 같아요</>;
+  }
   return (
     <Container>
       <div className="title">이번 달 대출 수</div>
@@ -73,12 +94,8 @@ const Loans = () => {
           />
         </ProgressBarGroup>
         <div className="text">
-          <p>2번 대출</p>
-          <div className="coment">
-            <span>청소년 편균보다 </span>
-            <span>3권</span>
-            <span> 덜 대출했어요</span>
-          </div>
+          <p>{stats.thisMounth_Bi}번 대출</p>
+          <div className="comment">{commentText}</div>
         </div>
       </div>
     </Container>

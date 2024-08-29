@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-// import Maps from "../components/library/Maps";
 import styled from "styled-components";
 import { IoChevronBack } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import Maps from "../components/attendance/Maps";
+import { PostAttendance } from "../api/AttendanceAPI";
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -24,6 +25,7 @@ const Header = styled.div`
     font-weight: bold;
   }
 `;
+
 const AttendanceText = styled.div`
   margin: 10px auto 0;
   width: 300px;
@@ -37,6 +39,7 @@ const AttendanceText = styled.div`
   color: ${({ isDisabled }) => (isDisabled ? "#a9a9a9" : "white")};
   background-color: ${({ isDisabled }) => (isDisabled ? "#d3d3d3" : "#957fe2")};
 `;
+
 const Bottom = styled.div`
   display: flex;
   align-items: center;
@@ -63,14 +66,20 @@ const MapContainer = styled.div`
 `;
 
 const AttendanceMap = () => {
-  const [buttonText, setButtonText] = useState("");
-  const [buttonDisabled, setButtonDisabled] = useState(false);
+  const [buttonText, setButtonText] = useState(
+    "마커를 클릭해 도서관을 선택하세요."
+  );
+  const [buttonDisabled, setButtonDisabled] = useState(true);
+  const [selectedLibrary, setSelectedLibrary] = useState(null);
   const navigate = useNavigate();
 
-  const onClickBtn = () => {
-    // 버튼이 비활성화 상태일 때는 클릭하지 못하도록
-    if (!buttonDisabled) {
-      // 출석하기 버튼 클릭 시 동작할 내용
+  const onClickBtn = async () => {
+    if (!buttonDisabled && selectedLibrary) {
+      const LibraryData = {
+        LBRRY_SEQ_NO: Number(selectedLibrary.LBRRY_SEQ_NO),
+      };
+      // console.log("data", LibraryData);
+      await PostAttendance(navigate, LibraryData);
     }
   };
 
@@ -91,7 +100,10 @@ const AttendanceMap = () => {
         </AttendanceText>
       </Header>
       <MapContainer>
-        <Maps updateButtonText={updateButtonText} />
+        <Maps
+          updateButtonText={updateButtonText}
+          setSelectedLibrary={setSelectedLibrary}
+        />
       </MapContainer>
       <Bottom>
         <AttendanceButton isDisabled={buttonDisabled} onClick={onClickBtn}>

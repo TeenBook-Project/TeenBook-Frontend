@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { IoChevronBack } from "react-icons/io5";
 import { FaCircle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { PostLoan } from "../api/LoanAPI.JSX";
 import { MdCameraswitch } from "react-icons/md";
 const Container = styled.div`
   display: flex;
@@ -109,29 +110,39 @@ const Loan = () => {
   const [cameraKey, setCameraKey] = useState(0);
   const navigate = useNavigate();
 
-  const takePhoto = () => {
+  // const takePhoto = () => {
+  //   if (camera.current) {
+  //     const photo = camera.current.takePhoto();
+  //     setImage(photo);
+  //     alert("인증이 완료되었습니다.");
+  //   }
+  // };
+  const handleLoanClick = async () => {
+    try {
+      await PostLoan(navigate);
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+  const toggleCamera = () => {
     if (camera.current) {
       const photo = camera.current.takePhoto();
       setImage(photo);
       alert("인증이 완료되었습니다.");
     }
   };
-
-  // const toggleCamera = () => {
-  //   setMode((prevMode) =>
-  //     prevMode === "environment" ? "user" : "environment"
-  //   );
-  //   setCameraKey((prevKey) => prevKey + 1);
-  // };
-  const toggleCamera = () => {
-    if (camera.current) {
-      camera.current.switchCamera();
-    }
-  };
-
   return (
     <Container className="form-container">
       <Header>
+        <div className="button">
+          <button className="left" onClick={() => navigate(-1)}>
+            <IoChevronBack size={30} />
+            뒤로가기
+          </button>
+          <button onClick={toggleCamera}>
+            <MdCameraswitch color="white" size={25} />
+          </button>
+        </div>
         <div className="button">
           <button className="left" onClick={() => navigate(-1)}>
             <IoChevronBack size={30} />
@@ -150,7 +161,7 @@ const Loan = () => {
       </CameraContainer>
 
       <Bottom>
-        <button onClick={takePhoto}>
+        <button onClick={handleLoanClick}>
           <FaCircle size={50} color="white" />
         </button>
 

@@ -86,6 +86,8 @@ video {
   font: inherit;
   vertical-align: baseline;
   box-sizing: border-box;
+  font-family: "IBM Plex Sans KR", sans-serif;
+  /* font-family: "Noto Sans KR", sans-serif; */
 }
 
 article,

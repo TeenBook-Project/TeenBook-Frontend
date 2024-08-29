@@ -4,6 +4,7 @@ import { FavoritAtom } from "../../recoil/FavoritAtom";
 import styled from "styled-components";
 import { MdStars } from "react-icons/md";
 import InfoModal from "./InfoModal";
+import { DeleteBookMark } from "../../api/BookMarkAPI";
 const Data = styled.div`
   margin: 17px 10px 30px;
   font-size: 12px;
@@ -61,8 +62,18 @@ const Favorites = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedLibrary, setSelectedLibrary] = useState(null);
   //즐겨찾기에서 도서관 제거
-  const removeFromFavorit = (libraryId) => {
-    setFavoritItem((prev) => prev.filter((e) => e.LBRRY_SEQ_NO !== libraryId));
+  const removeFromFavorit = async (libraryId, libraryName) => {
+    try {
+      // 서버에서 즐겨찾기 삭제
+      await DeleteBookMark(favoritItem.LBRRY_NAME);
+      // 로컬 상태 업데이트
+      setFavoritItem((prev) =>
+        prev.filter((e) => e.LBRRY_SEQ_NO !== libraryId)
+      );
+    } catch (error) {
+      console.error("즐겨찾기 삭제 중 오류가 발생했습니다:", error);
+      alert("즐겨찾기 삭제 중 오류가 발생했습니다. 다시 시도해주세요.");
+    }
   };
   // 정보보기 버튼 클릭 시 모달 열기
   const handleViewDetails = (library) => {

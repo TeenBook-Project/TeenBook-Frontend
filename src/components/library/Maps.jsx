@@ -4,7 +4,8 @@ import { Map, MapMarker, MarkerClusterer, Circle } from "react-kakao-maps-sdk";
 import InfoModal from "./InfoModal";
 import CurrentMarker from "../../assets/MyMarker.png";
 import LibraryMarker from "../../assets/LibraryMarker.png";
-
+import { useRecoilState } from "recoil";
+import { LibraryAtom } from "../../recoil/LibraryAtom";
 // 좌표 간 거리를 계산하는 함수 (단위: 미터)
 const calculateDistance = (lat1, lng1, lat2, lng2) => {
   const R = 6371e3; // 지구 반지름 (미터)
@@ -27,33 +28,32 @@ const Maps = () => {
   const [selectedLibrary, setSelectedLibrary] = useState(null); // 선택된 도서관 정보
   const [currentPosition, setCurrentPosition] = useState(null);
   const [mapLevel, setMapLevel] = useState(10);
+  const [library, setLibrary] = useRecoilState(LibraryAtom);
 
   // 필터링을 위한 거리 제한 (예: 3km)
   const distanceLimit = 5000;
 
   useEffect(() => {
     const loadLibraries = async () => {
-      //   try {
-      //     const res = await fetchLibraries("/api/library");
-      //     const data = await res.json();
-      //     console.log("도서관 위치:", data);
-
-      //     setLibraries(data.SeoulPublicLibraryInfo.row || []);
-      //   } catch (error) {
-      //     console.error("Error loading libraries:", error);
-      //   }
-      // };
       try {
-        const res = await fetch("/api/library");
-        const data = await res.json();
-        console.log(data, "도서관 위치");
+        const data = await fetchLibraries();
+        console.log("도서관 위치:", data);
+        setLibrary(data.SeoulPublicLibraryInfo.row);
+
         setLibraries(data.SeoulPublicLibraryInfo.row || []);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Error loading libraries:", error);
       }
+      // };
+      // try {
+      //   const res = await fetch("/api/library");
+      //   const data = await res.json();
+      //   console.log(data, "도서관 위치");
+      //   setLibraries(data.SeoulPublicLibraryInfo.row || []);
+      // } catch (error) {
+      //   console.error("Error fetching data:", error);
+      // }
     };
-
-    loadLibraries();
 
     loadLibraries();
 
@@ -80,7 +80,7 @@ const Maps = () => {
   }, []);
 
   // 가까운 도서관만 필터링하는 함수
-  const filteredLibraries = libraries.filter((lib) => {
+  const filteredLibraries = library.filter((lib) => {
     if (!currentPosition) return false;
     const distance = calculateDistance(
       currentPosition.lat,
@@ -112,7 +112,7 @@ const Maps = () => {
         onZoomChanged={(map) => setMapLevel(map.getLevel())}
       >
         <MarkerClusterer averageCenter={true} minLevel={10}>
-          {filteredLibraries.map((lib) => (
+          {library.map((lib) => (
             <div key={lib.LBRRY_SEQ_NO}>
               <MapMarker
                 position={{ lat: lib.XCNTS, lng: lib.YDNTS }}
@@ -129,7 +129,7 @@ const Maps = () => {
                     lat: lib.XCNTS,
                     lng: lib.YDNTS,
                   }}
-                  radius={50}
+                  radius={100}
                   strokeWeight={1} // 선의 두께
                   strokeColor={"#5479EE"} // 선의 색깔
                   strokeOpacity={1} // 선의 불투명도

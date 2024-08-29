@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../components/common/Header";
 import Footer from "../components/common/Footer";
 import styled from "styled-components";
 import Point from "../components/stats/Point";
 import Visit from "../components/stats/Visit";
 import Loans from "../components/stats/Loans";
-
+import { fetchStats } from "../api/StatsAPI";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -18,10 +18,6 @@ const StatsContainer = styled.div`
 
   display: flex;
   flex-direction: column;
-
-  /* & > * {
-    flex-shrink: 0; 
-  } */
 `;
 
 const PointContainer = styled.div`
@@ -37,18 +33,31 @@ const LoansContainer = styled.div`
 `;
 
 const Stats = () => {
+  const [stats, setStats] = useState(fetchStats);
+  useEffect(() => {
+    const loadStats = async () => {
+      try {
+        const data = await fetchStats();
+        setStats(data.result[0]);
+        console.log(data.result[0]);
+      } catch (error) {
+        console.log("error", error);
+      }
+    };
+    loadStats();
+  }, []);
   return (
     <Container>
       <Header />
       <StatsContainer>
         <PointContainer>
-          <Point />
+          <Point stats={stats} />
         </PointContainer>
         <VisitContainer>
-          <Visit />
+          <Visit stats={stats} />
         </VisitContainer>
         <LoansContainer>
-          <Loans />
+          <Loans stats={stats} />
         </LoansContainer>
       </StatsContainer>
       <Footer />
