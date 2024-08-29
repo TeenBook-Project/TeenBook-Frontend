@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { IoChevronBack } from "react-icons/io5";
 import { FaCircle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import { PostLoan } from "../api/LoanAPI.JSX";
+import { PostLoan } from "../api/Borrow";
 import { MdCameraswitch } from "react-icons/md";
 const Container = styled.div`
   display: flex;
@@ -106,8 +106,6 @@ const Bottom = styled.div`
 const Loan = () => {
   const camera = useRef(null);
   const [image, setImage] = useState(null);
-  const [mode, setMode] = useState("environment");
-  const [cameraKey, setCameraKey] = useState(0);
   const navigate = useNavigate();
 
   // const takePhoto = () => {
@@ -126,23 +124,12 @@ const Loan = () => {
   };
   const toggleCamera = () => {
     if (camera.current) {
-      const photo = camera.current.takePhoto();
-      setImage(photo);
-      alert("인증이 완료되었습니다.");
+      camera.current.switchCamera();
     }
   };
   return (
     <Container className="form-container">
       <Header>
-        <div className="button">
-          <button className="left" onClick={() => navigate(-1)}>
-            <IoChevronBack size={30} />
-            뒤로가기
-          </button>
-          <button onClick={toggleCamera}>
-            <MdCameraswitch color="white" size={25} />
-          </button>
-        </div>
         <div className="button">
           <button className="left" onClick={() => navigate(-1)}>
             <IoChevronBack size={30} />
