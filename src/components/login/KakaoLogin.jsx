@@ -11,7 +11,13 @@ const K_JS_API_KEY = import.meta.env.VITE_K_JS_API_KEY;
 //   import.meta.env.MODE === "development"
 //     ? import.meta.env.VITE_DEVELOP_API_URL
 //     : import.meta.env.VITE_API_URL;
+// const API_URL =
+//   import.meta.env.MODE === "development"
+//     ? import.meta.env.VITE_DEVELOP_API_URL
+//     : import.meta.env.VITE_API_URL;
 
+// console.log("API URL:", API_URL);
+// console.log("Current environment:", import.meta.env.MODE);
 // console.log("API URL:", API_URL);
 // console.log("Current environment:", import.meta.env.MODE);
 

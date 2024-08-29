@@ -106,6 +106,8 @@ const Bottom = styled.div`
 const Loan = () => {
   const camera = useRef(null);
   const [image, setImage] = useState(null);
+  const [mode, setMode] = useState("environment");
+  const [cameraKey, setCameraKey] = useState(0);
   const navigate = useNavigate();
 
   // const takePhoto = () => {
@@ -124,12 +126,23 @@ const Loan = () => {
   };
   const toggleCamera = () => {
     if (camera.current) {
-      camera.current.switchCamera();
+      const photo = camera.current.takePhoto();
+      setImage(photo);
+      alert("인증이 완료되었습니다.");
     }
   };
   return (
     <Container className="form-container">
       <Header>
+        <div className="button">
+          <button className="left" onClick={() => navigate(-1)}>
+            <IoChevronBack size={30} />
+            뒤로가기
+          </button>
+          <button onClick={toggleCamera}>
+            <MdCameraswitch color="white" size={25} />
+          </button>
+        </div>
         <div className="button">
           <button className="left" onClick={() => navigate(-1)}>
             <IoChevronBack size={30} />
