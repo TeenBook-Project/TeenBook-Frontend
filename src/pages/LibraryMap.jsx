@@ -39,8 +39,8 @@ const LibraryMap = () => {
   const [currentTab, setCurrentTab] = useState(0);
   const [favoritItem, setFavortItem] = useRecoilState(FavoritAtom);
   const menuArr = [
-    { name: "가까운 매장", content: <Maps /> },
-    { name: "자주 찾는 매장", content: <Favorites /> },
+    { name: "가까운 도서관", content: <Maps /> },
+    { name: "자주 찾는 도서관", content: <Favorites /> },
   ];
 
   const selectMenuHandler = (index) => {
