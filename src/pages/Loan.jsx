@@ -6,6 +6,7 @@ import { IoChevronBack } from "react-icons/io5";
 import { FaCircle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { PostLoan } from "../api/LoanAPI.JSX";
+import { MdCameraswitch } from "react-icons/md";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -52,13 +53,16 @@ const Header = styled.div`
   left: 0;
   z-index: 1;
   width: 100%;
-
-  .back-button {
+  .button {
     display: flex;
-    font-size: 1.2rem;
+    justify-content: space-between;
+    .left {
+      display: flex;
+      font-size: 1.2rem;
 
-    font-weight: bold;
-    color: white;
+      font-weight: bold;
+      color: white;
+    }
   }
 
   p {
@@ -114,24 +118,33 @@ const Loan = () => {
   const handleLoanClick = async () => {
     try {
       await PostLoan(navigate);
-      alert("인증이 완료되었습니다.");
     } catch (error) {
       console.log("error", error);
+    }
+  };
+  const toggleCamera = () => {
+    if (camera.current) {
+      camera.current.switchCamera();
     }
   };
   return (
     <Container className="form-container">
       <Header>
-        <button className="back-button" onClick={() => navigate(-1)}>
-          <IoChevronBack size={30} />
-          뒤로가기
-        </button>
+        <div className="button">
+          <button className="left" onClick={() => navigate(-1)}>
+            <IoChevronBack size={30} />
+            뒤로가기
+          </button>
+          <button onClick={toggleCamera}>
+            <MdCameraswitch color="white" size={25} />
+          </button>
+        </div>
         <p>대출인증</p>
         <p>대출증을 사진 찍어 주세요!</p>
       </Header>
 
       <CameraContainer className="camera-container">
-        <Camera ref={camera} className="camera" />
+        <Camera facingMode="environment" ref={camera} className="camera" />
       </CameraContainer>
 
       <Bottom>
