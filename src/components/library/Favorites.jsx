@@ -65,7 +65,7 @@ const Favorites = () => {
   const removeFromFavorit = async (libraryId, libraryName) => {
     try {
       // 서버에서 즐겨찾기 삭제
-      await DeleteBookMark(library.LBRRY_NAME);
+      await DeleteBookMark(favoritItem.LBRRY_NAME);
       // 로컬 상태 업데이트
       setFavoritItem((prev) =>
         prev.filter((e) => e.LBRRY_SEQ_NO !== libraryId)
