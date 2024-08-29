@@ -9,6 +9,7 @@ export const PostAttendance = async (navigate, LibraryData) => {
       headers: {
         "Content-Type": "application/json",
       },
+      withCredentials: true,
     });
     if (response.status === 200) {
       if (response.data.success === true) {

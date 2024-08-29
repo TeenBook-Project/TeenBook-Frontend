@@ -4,7 +4,9 @@ const BASE_URL = import.meta.env.VITE_BACK_URL;
 
 export const fetchStats = async () => {
   try {
-    const response = await axios.get(`${BASE_URL}/user/count`);
+    const response = await axios.get(`${BASE_URL}/user/count`, {
+      withCredentials: true,
+    });
     if (response.status === 200) {
       console.log("나의 통계 데이터", response.data);
       return response.data;

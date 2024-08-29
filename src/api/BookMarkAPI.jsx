@@ -28,7 +28,9 @@ export const PostBookMark = async (bookData) => {
 export const DeleteBookMark = async (LBRRY_NAME) => {
   console.log(LBRRY_NAME);
   try {
-    const response = await axios.delete(`${BASE_URL}/bookmark/${LBRRY_NAME}`);
+    const response = await axios.delete(`${BASE_URL}/bookmark/${LBRRY_NAME}`, {
+      withCredentials: true,
+    });
     if (response.status === 200) {
       console.log(response.data);
 

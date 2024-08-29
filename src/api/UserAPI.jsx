@@ -56,7 +56,9 @@ export const PostUser = async (userData, navigate, setSignIn) => {
 //로그아웃
 export const Logout = async (navigate, setSignIn) => {
   try {
-    const response = await axios.get(`${BASE_URL}/user/logout`);
+    const response = await axios.get(`${BASE_URL}/user/logout`, {
+      withCredentials: true,
+    });
     if (response.status === 200) {
       console.log("로그아웃 성공");
       navigate("/");
@@ -69,7 +71,9 @@ export const Logout = async (navigate, setSignIn) => {
 //user 정보 가져오는 api
 export const FetchUser = async () => {
   try {
-    const response = await axios.get(`${BASE_URL}/user/count`);
+    const response = await axios.get(`${BASE_URL}/user/count`, {
+      withCredentials: true,
+    });
     console.log("유저데이터", response.data);
     return response.data;
   } catch (error) {
