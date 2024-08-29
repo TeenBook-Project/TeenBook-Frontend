@@ -36,10 +36,11 @@ const Maps = () => {
   useEffect(() => {
     const loadLibraries = async () => {
       try {
-        const data = await fetchLibraries();
-        console.log("도서관 위치:", data);
-        setLibrary(data.SeoulPublicLibraryInfo.row);
-
+        // const data = await fetchLibraries();
+        // console.log("도서관 위치:", data);
+        // setLibrary(data.SeoulPublicLibraryInfo.row);
+        const res = await fetch("/api/library");
+        const data = await res.json();
         setLibraries(data.SeoulPublicLibraryInfo.row || []);
       } catch (error) {
         console.error("Error loading libraries:", error);

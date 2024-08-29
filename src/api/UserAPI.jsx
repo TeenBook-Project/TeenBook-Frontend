@@ -31,16 +31,12 @@ export const PostUser = async (userData, navigate, setSignIn) => {
   try {
     const json = JSON.stringify(userData);
     console.log("userData:", json);
-    const response = await axios.post(
-      "https://api.teenbook.click/user/login",
-      json,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
-      }
-    );
+    const response = await axios.post(`${BASE_URL}/user/login`, json, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      withCredentials: true,
+    });
     if (response.status === 200) {
       navigate("/Home");
       setSignIn(true);
