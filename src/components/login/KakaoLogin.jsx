@@ -6,6 +6,7 @@ import { PostUser } from "../../api/UserAPI";
 import styled from "styled-components";
 import { SignInState } from "../../recoil/SignInAotm";
 import { UserAtom } from "../../recoil/UserAtom";
+import axios from "axios";
 const K_JS_API_KEY = import.meta.env.VITE_K_JS_API_KEY;
 
 const KAKAO = styled.button`
@@ -62,8 +63,10 @@ const KakaoLogin = () => {
         profile: profile.profile_image_url,
       };
       console.log("데이터:", userData);
-      await PostUser(userData, navigate, setSignIn);
-      setUser(userData);
+      // await PostUser(userData, navigate, setSignIn);
+      // setUser(userData);
+      await axios.post("/api/teenbok-api/proxy", userData);
+      console.log("로그인 성공:", response.data);
     } catch (error) {
       console.error("Error:", error);
     }
