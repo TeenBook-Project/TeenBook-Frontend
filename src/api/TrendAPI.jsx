@@ -2,7 +2,7 @@ import axios from "axios";
 const BASE_URL = import.meta.env.VITE_BACK_URL;
 export const fetchTrendBooks = async () => {
   try {
-    const response = await axios.get(`${BASE_URL}/scrape/hotBorrow`, {}, {
+    const response = await axios.get(`${BASE_URL}/scrape/hotBorrow`, {
       withCredentials: true,
     });
     console.log("급상승도서대출 데이터", response.data);
