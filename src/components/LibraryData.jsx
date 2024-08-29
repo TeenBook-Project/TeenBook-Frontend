@@ -6,29 +6,29 @@ const LibraryData = () => {
   const [libraries, setLibraries] = useState([]);
 
   useEffect(() => {
-    // const loadLibraries = async () => {
-    //   try {
-    //     const res = await fetch("/api/library");
-    //     const res2 = await fetch("/api/popular");
-    //     const data = await res.json();
-    //     const data2 = await res2.json();
-    //     console.log(data, "도서관 위치");
-    //     console.log(data2, "인기있는 도서");
-    //   } catch (error) {
-    //     console.error("Error fetching data:", error);
-    //   }
-    // };
-
-    // loadLibraries();
-    const Books = async () => {
+    const loadLibraries = async () => {
       try {
-        const data = await fetchTrendBooks();
-        console.log("급상승", data);
+        const res = await fetch("/api/library");
+        const res2 = await fetch("/api/popular");
+        const data = await res.json();
+        const data2 = await res2.json();
+        console.log(data, "도서관 위치");
+        console.log(data2, "인기있는 도서");
       } catch (error) {
-        console.log("error", error);
+        console.error("Error fetching data:", error);
       }
     };
-    Books();
+
+    loadLibraries();
+    //   const Books = async () => {
+    //     try {
+    //       const data = await fetchTrendBooks();
+    //       console.log("급상승", data);
+    //     } catch (error) {
+    //       console.log("error", error);
+    //     }
+    //   };
+    //   Books();
   }, []);
 
   return (
