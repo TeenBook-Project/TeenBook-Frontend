@@ -1,10 +1,11 @@
 import axios from "axios";
+const BASE_URL = import.meta.env.VITE_BACK_URL;
 //출석하기
 export const PostAttendance = async (navigate, LibraryData) => {
   try {
     const json = JSON.stringify(LibraryData);
     console.log(json);
-    const response = await axios.post("teenbook-api/attendance_info", json, {
+    const response = await axios.post(`${BASE_URL}/attendance_info`, json, {
       headers: {
         "Content-Type": "application/json",
       },
