@@ -1,39 +1,17 @@
-// self.addEventListener("install", (event) => {
-//   console.log("Service Worker installing...");
-//   event.waitUntil(
-//     caches.open("my-cache-v1").then((cache) => {
-//       return cache.addAll(["/", "/index.html", "/logo192.png", "/logo512.png"]);
-//     })
-//   );
-// });
+// install event
+self.addEventListener("install", (e) => {
+  console.log("[Service Worker] installed");
+});
 
-// self.addEventListener("fetch", (event) => {
-//   event.respondWith(
-//     caches.match(event.request).then((cachedResponse) => {
-//       if (cachedResponse) {
-//         return cachedResponse;
-//       }
-//       return fetch(event.request).then((networkResponse) => {
-//         return caches.open("my-cache-v1").then((cache) => {
-//           cache.put(event.request, networkResponse.clone());
-//           return networkResponse;
-//         });
-//       });
-//     })
-//   );
-// });
+// activate event
+self.addEventListener("activate", (e) => {
+  console.log("[Service Worker] actived", e);
+});
 
-// self.addEventListener("activate", (event) => {
-//   const cacheWhitelist = ["my-cache-v1"];
-//   event.waitUntil(
-//     caches.keys().then((keyList) =>
-//       Promise.all(
-//         keyList.map((key) => {
-//           if (!cacheWhitelist.includes(key)) {
-//             return caches.delete(key);
-//           }
-//         })
-//       )
-//     )
+// fetch event
+self.addEventListener("fetch", (e) => {
+  console.log("[Service Worker] fetched resource " + e.request.url);
+});
+
 //   );
 // });

@@ -16,7 +16,7 @@
     />
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- <link rel="manifest" href="/manifest.json" /> -->
+    <link rel="manifest" href="/manifest.json" />
     <!-- <link rel="manifest" href="/manifest.webmanifest" crossorigin="anonymous" /> -->
 
     <title>library</title>
@@ -29,12 +29,12 @@
       type="text/javascript"
       src="//dapi.kakao.com/v2/maps/sdk.js?appkey=%VITE_K_JS_API_KEY%&libraries=services,clusterer"
     ></script>
-    <!-- <script>
+    <script>
       if ("serviceWorker" in navigator) {
         // Register a service worker hosted at the root of the
         // site using the default scope.
         navigator.serviceWorker
-          .register("/sw.js")
+          .register("/service-worker.js")
           .then((registration) => {
             console.log("Service worker registration succeeded:", registration);
           })
@@ -44,6 +44,6 @@
       } else {
         console.log("Service workers are not supported.");
       }
-    </script> -->
+    </script>
   </body>
 </html>
