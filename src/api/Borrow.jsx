@@ -5,6 +5,9 @@ const BASE_URL = import.meta.env.VITE_BACK_URL;
 export const PostLoan = async (navigate) => {
   try {
     const response = await axios.post(`${BASE_URL}/borrow_info`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
       withCredentials: true,
     });
     if (response.status === 200) {
