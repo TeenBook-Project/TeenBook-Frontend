@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { MdStars } from "react-icons/md";
 import InfoModal from "./InfoModal";
 import { DeleteBookMark } from "../../api/BookMarkAPI";
+import { FetchUser } from "../../api/UserAPI";
 const Data = styled.div`
   margin: 17px 10px 30px;
   font-size: 12px;
@@ -61,6 +62,7 @@ const Favorites = () => {
   const [favoritItem, setFavoritItem] = useRecoilState(FavoritAtom);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedLibrary, setSelectedLibrary] = useState(null);
+  const [user, setUser] = useState([]);
   //즐겨찾기에서 도서관 제거
   const removeFromFavorit = async (libraryId, libraryName) => {
     try {
@@ -70,6 +72,8 @@ const Favorites = () => {
       setFavoritItem((prev) =>
         prev.filter((e) => e.LBRRY_SEQ_NO !== libraryId)
       );
+      const data = await FetchUser();
+      setUser(data.result[0]);
     } catch (error) {
       console.error("즐겨찾기 삭제 중 오류가 발생했습니다:", error);
       alert("즐겨찾기 삭제 중 오류가 발생했습니다. 다시 시도해주세요.");
@@ -109,7 +113,7 @@ const Favorites = () => {
                 </div>
               </div>
               <div className="content">
-                <p>방문 횟 수 10회</p>
+                <p>방문 횟 수 {user.thisMounth_Ai}회</p>
                 <p>{e.ADRES}</p>
                 <p>{e.TEL_NO}</p>
               </div>
