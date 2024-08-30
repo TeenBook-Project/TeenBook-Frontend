@@ -113,7 +113,7 @@ const Favorites = () => {
                 </div>
               </div>
               <div className="content">
-                <p>방문 횟 수 {user.thisMounth_Ai}회</p>
+                <p>방문 횟 수 0회</p>
                 <p>{e.ADRES}</p>
                 <p>{e.TEL_NO}</p>
               </div>
