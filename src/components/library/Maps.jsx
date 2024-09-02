@@ -39,7 +39,8 @@ const Maps = () => {
   useEffect(() => {
     const loadLibraries = async () => {
       try {
-        const data = await fetchLibraries();
+        const res = await fetch("/api/library");
+        const data = await res.json();
         console.log("도서관 위치:", data);
         setLibrary(data.SeoulPublicLibraryInfo.row);
 
