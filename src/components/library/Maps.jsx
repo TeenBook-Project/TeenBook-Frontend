@@ -6,6 +6,9 @@ import CurrentMarker from "../../assets/MyMarker.png";
 import LibraryMarker from "../../assets/LibraryMarker.png";
 import { useRecoilState } from "recoil";
 import { LibraryAtom } from "../../recoil/LibraryAtom";
+import { FaLocationCrosshairs } from "react-icons/fa6";
+import styled from "styled-components";
+
 // 좌표 간 거리를 계산하는 함수 (단위: 미터)
 const calculateDistance = (lat1, lng1, lat2, lng2) => {
   const R = 6371e3; // 지구 반지름 (미터)
@@ -29,20 +32,18 @@ const Maps = () => {
   const [currentPosition, setCurrentPosition] = useState(null);
   const [mapLevel, setMapLevel] = useState(10);
   const [library, setLibrary] = useRecoilState(LibraryAtom);
-
+  const [map, setMap] = useState(null);
   // 필터링을 위한 거리 제한 (예: 3km)
   const distanceLimit = 5000;
 
   useEffect(() => {
     const loadLibraries = async () => {
       try {
-        // const data = await fetchLibraries();
-        // console.log("도서관 위치:", data);
-        // setLibrary(data.SeoulPublicLibraryInfo.row);
-        const res = await fetch("/api/library");
-        const data = await res.json();
+        const data = await fetchLibraries();
+        console.log("도서관 위치:", data);
         setLibrary(data.SeoulPublicLibraryInfo.row);
-        // setLibraries(data.SeoulPublicLibraryInfo.row || []);
+
+        setLibraries(data.SeoulPublicLibraryInfo.row || []);
       } catch (error) {
         console.error("Error loading libraries:", error);
       }
@@ -66,7 +67,7 @@ const Maps = () => {
     // });
 
     // 사용자 현재 위치 가져오기
-    
+
     navigator.geolocation.getCurrentPosition(
       (position) => {
         setCurrentPosition({
@@ -78,7 +79,6 @@ const Maps = () => {
         console.error("Error getting current position:", error);
       }
     );
-    
   }, []);
 
   // 가까운 도서관만 필터링하는 함수
@@ -100,9 +100,16 @@ const Maps = () => {
   const handleCloseModal = () => {
     setSelectedLibrary(null); // 모달 닫기
   };
-
+  // 위치로 이동하는 함수
+  const moveToCurrentLocation = () => {
+    if (currentPosition && map) {
+      map.panTo(
+        new kakao.maps.LatLng(currentPosition.lat, currentPosition.lng)
+      );
+    }
+  };
   return (
-    <div style={{ width: "100%", height: "100%" }}>
+    <Container style={{ width: "100%", height: "100%" }}>
       <Map
         center={
           currentPosition
@@ -112,6 +119,7 @@ const Maps = () => {
         style={{ width: "100%", height: "85vh", position: "relative" }}
         level={mapLevel}
         onZoomChanged={(map) => setMapLevel(map.getLevel())}
+        onCreate={setMap}
       >
         <MarkerClusterer averageCenter={true} minLevel={10}>
           {library.map((lib) => (
@@ -144,25 +152,51 @@ const Maps = () => {
           ))}
         </MarkerClusterer>
         {/* 현재 위치 표시 */}
+
         {currentPosition && (
-          <MapMarker
-            position={{ lat: currentPosition.lat, lng: currentPosition.lng }}
-            image={{
-              src: CurrentMarker,
-              size: { width: 20, height: 20 },
-            }}
-          />
+          <div>
+            <MapMarker
+              position={{ lat: currentPosition.lat, lng: currentPosition.lng }}
+              image={{
+                src: CurrentMarker,
+                size: { width: 20, height: 20 },
+              }}
+            />
+          </div>
         )}
       </Map>
-
+      {/* 위치 이동 버튼 */}
+      <LocationButton onClick={moveToCurrentLocation}>
+        <FaLocationCrosshairs />
+      </LocationButton>
       {/* 도서관 정보 모달 표시 */}
       <InfoModal
         isOpen={selectedLibrary !== null}
         onClose={handleCloseModal}
         library={selectedLibrary}
       ></InfoModal>
-    </div>
+    </Container>
   );
 };
 
 export default Maps;
+
+const Container = styled.div`
+  position: relative;
+`;
+const LocationButton = styled.button`
+  position: absolute;
+  bottom: 45px;
+  left: 10px;
+  background-color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+`;
