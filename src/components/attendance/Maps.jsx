@@ -3,6 +3,8 @@ import { Map, MapMarker, MarkerClusterer, Circle } from "react-kakao-maps-sdk";
 import CurrentMarker from "../../assets/MyMarker.png";
 import LabraryMarker from "../../assets/LibraryMarker.png";
 import { fetchLibraries } from "../../api/LibraryAPI";
+import { FaLocationCrosshairs } from "react-icons/fa6";
+import styled from "styled-components";
 
 // 거리 계산 함수
 const calculateDistance = (lat1, lng1, lat2, lng2) => {
@@ -25,6 +27,7 @@ const Maps = ({ updateButtonText, setSelectedLibrary }) => {
   const [libraries, setLibraries] = useState([]);
   const [currentPosition, setCurrentPosition] = useState(null);
   const [mapLevel, setMapLevel] = useState(10);
+  const [map, setMap] = useState(null);
 
   useEffect(() => {
     const loadLibraries = async () => {
@@ -39,21 +42,21 @@ const Maps = ({ updateButtonText, setSelectedLibrary }) => {
     loadLibraries();
 
     // 사용자의 현재 위치 설정 (테스트용, 실제 위치 가져오도록 수정 필요)
-    setCurrentPosition({
-      lat: 37.5519062,
-      lng: 126.9796763,
-    });
-    // navigator.geolocation.getCurrentPosition(
-    //   (position) => {
-    //     setCurrentPosition({
-    //       lat: position.coords.latitude,
-    //       lng: position.coords.longitude,
-    //     });
-    //   },
-    //   (error) => {
-    //     console.error("Error getting current position:", error);
-    //   }
-    // );
+    // setCurrentPosition({
+    //   lat: 37.5519062,
+    //   lng: 126.9796763,
+    // });
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setCurrentPosition({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        });
+      },
+      (error) => {
+        console.error("Error getting current position:", error);
+      }
+    );
   }, []);
 
   // 마커 클릭 시 선택한 도서관과 거리 확인
@@ -73,9 +76,16 @@ const Maps = ({ updateButtonText, setSelectedLibrary }) => {
       updateButtonText("선택한 도서관이 너무 멀리 있습니다.", true); // 버튼 비활성화
     }
   };
-
+  // 위치로 이동하는 함수
+  const moveToCurrentLocation = () => {
+    if (currentPosition && map) {
+      map.panTo(
+        new kakao.maps.LatLng(currentPosition.lat, currentPosition.lng)
+      );
+    }
+  };
   return (
-    <div style={{ width: "100%", height: "100%" }}>
+    <Container style={{ width: "100%", height: "100%" }}>
       <Map
         center={
           currentPosition
@@ -85,6 +95,7 @@ const Maps = ({ updateButtonText, setSelectedLibrary }) => {
         style={{ width: "100%", height: "100%" }}
         level={mapLevel}
         onZoomChanged={(map) => setMapLevel(map.getLevel())}
+        onCreate={setMap}
       >
         <MarkerClusterer averageCenter={true} minLevel={10}>
           {libraries.map((lib) => (
@@ -113,7 +124,9 @@ const Maps = ({ updateButtonText, setSelectedLibrary }) => {
             </div>
           ))}
         </MarkerClusterer>
-
+        <LocationButton onClick={moveToCurrentLocation}>
+          <FaLocationCrosshairs />
+        </LocationButton>
         {/* 현재 위치 표시 */}
         {currentPosition && (
           <MapMarker
@@ -125,8 +138,27 @@ const Maps = ({ updateButtonText, setSelectedLibrary }) => {
           />
         )}
       </Map>
-    </div>
+    </Container>
   );
 };
 
 export default Maps;
+const Container = styled.div`
+  position: relative;
+`;
+const LocationButton = styled.button`
+  position: absolute;
+  bottom: 20px;
+  left: 10px;
+  background-color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  /* box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1); */
+  z-index: 10;
+`;
