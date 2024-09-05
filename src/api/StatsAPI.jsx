@@ -1,6 +1,6 @@
 //나의 방문수, 대출 수, 포인트, 레벨
 import axios from "axios";
-const BASE_URL = import.meta.env.VITE_BACK_URL;
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 export const fetchStats = async () => {
   try {

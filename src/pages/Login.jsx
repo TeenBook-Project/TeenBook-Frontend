@@ -6,7 +6,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   height: 100vh;
-  /* background: radial-gradient(at 50% 35%, #512ad1, #8367e1, white); */
   background: linear-gradient(to top, white, #8367e1, #8367e1);
 
   .app-contnet {

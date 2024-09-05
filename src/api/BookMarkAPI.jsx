@@ -1,5 +1,5 @@
 import axios from "axios";
-const BASE_URL = import.meta.env.VITE_BACK_URL;
+const BASE_URL = import.meta.env.VITE_API_URL;
 //즐겨찾기 등록
 export const PostBookMark = async (bookData) => {
   try {

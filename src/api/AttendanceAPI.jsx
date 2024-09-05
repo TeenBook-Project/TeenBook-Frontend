@@ -1,5 +1,5 @@
 import axios from "axios";
-const BASE_URL = import.meta.env.VITE_BACK_URL;
+const BASE_URL = import.meta.env.VITE_API_URL;
 //출석하기
 export const PostAttendance = async (navigate, LibraryData) => {
   try {

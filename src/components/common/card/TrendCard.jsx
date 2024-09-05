@@ -40,15 +40,12 @@ const ImageContainer = styled.div`
   padding: 20px;
 
   img {
-    /* max-width: 100%;
-    max-height: 70%; */
     object-fit: contain;
   }
 `;
 
 const Content = styled.div`
   width: 100%;
-  /* height: 20%; */
   padding: 20px 20px 30px;
   box-sizing: border-box;
   background-color: white;
@@ -81,9 +78,6 @@ const TrendCard = ({ data, ranking }) => {
     <CardContainer>
       <div className="rank">
         <BsFillBarChartFill size={10} />
-        {/* {rank.map((e) => (
-          <p key={e.ranking}>{e.ranking}등</p>
-        ))} */}
         <p>{ranking}등</p>
       </div>
       <ImageContainer>

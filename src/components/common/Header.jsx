@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { LuShoppingBag } from "react-icons/lu";
-import img from "../../assets/짱구.jpg";
 import { Link } from "react-router-dom";
 import { SignInState } from "../../recoil/SignInAotm";
 import { MdLogout } from "react-icons/md";

@@ -52,8 +52,9 @@ const PopularBookRank = () => {
       setLoading(true);
       try {
         // const data = await fetchPopularBooksAPI();
-        const res = await fetch("/api/popular");
-        const data = await res.json();
+        // const res = await fetch("/api/popular");
+        // const data = await res.json();
+        const data = await fetchPopularBooksAPI();
         const filteredData = removeDuplicates(data.response.docs);
         const firstFiveItems = filteredData.slice(0, 5);
         setBooks(firstFiveItems);
