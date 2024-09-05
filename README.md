@@ -29,23 +29,34 @@ TeenBook은 청소년들이 도서관 이벤트와 정보에 대해서 쉽게 �
 
 
 ## :green_heart:주요 기능
-|                            [간편 카카오 로그인]                            |                            [인기 도서 데이터 표시] / [대출 급상승 도서 데이터 표시]                         |            [포인트샵]                         |                                   
-| :---------------------------------------------------------------: | :---------------------------------------------------------------: | :---------------------------------------------------------------: |
-| <img src="https://github.com/user-attachments/assets/471a72b9-81d9-41db-a4c4-c173a9c7efef" width="200" alt="간편로그인"/> | <img src="https://github.com/user-attachments/assets/e73ce771-75ce-4baa-bbf1-787ad86b4e78" width="200" alt="인기도서"/> <img src="https://github.com/user-attachments/assets/6aa46c97-3e5b-43a0-91cf-49268d009bb2" width="200" alt="대출 급상승"/>|<img src="https://github.com/user-attachments/assets/4dd0aa35-dc25-4b7a-afdd-772287ff2a46" width="200" alt="포인트샵"/> |
-|               카카오 API를 이용하여 소셜 로그인 구현               |            홈 상단에 탭메뉴를 통해 접근가능 <br />도서관 정보나루 API 이용 / 크롤링을 통해 데이터 수집하여 API로 구현 <br />UI는 carousel로 구현하고 navigation 버튼을 나타내 사용자 중심 UI 구성         |    출석하기 및 대출하기로 모은 포인트 사용 가능              |
-
-|                                            [지리 기반 도서관 위치 안내 및 도서관 정]                   |      [즐겨찾기] / [즐겨찾기 목록]                        |                                
+|                            [간편 카카오 로그인]                            |                            [인기 도서 데이터 표시] / [대출 급상승 도서 데이터 표시]                         |                                                        
 | :---------------------------------------------------------------: | :---------------------------------------------------------------: |
-|<img src="https://github.com/user-attachments/assets/a37912ad-d6eb-44e3-aa21-d1ac9594997f" width="200" alt="가까운 매장"/> <img src="https://github.com/user-attachments/assets/c920be86-dd41-4647-9a92-be625f759436" width="200" alt="도서관 정보"/> | <img src="https://github.com/user-attachments/assets/26574960-44b6-4f37-9afd-869ea621dd91" width="200" alt="즐겨찾기"/> <img src="https://github.com/user-attachments/assets/46ce9a1a-d581-4a4b-aa69-512f5971d4fd" width="200" alt="즐겨찾기목록"/>|
-|              카카오 맵 API 사용<br />서울 도서관 API 사용<br /> 사용자 위치 기반으로 인근 도서관의 위치를 제공, 도서관 마커 클릭 시 해당 도서관의 상세 정보 확인              |           사용자는 즐겨 찾는 도서관 등록 및 해제 가능, 등록한 도서관은 자주 찾는 도서관 탭에서 확인 가능.         |        
+| <img src="https://github.com/user-attachments/assets/471a72b9-81d9-41db-a4c4-c173a9c7efef" width="200" alt="간편로그인"/> | <img src="https://github.com/user-attachments/assets/e73ce771-75ce-4baa-bbf1-787ad86b4e78" width="200" alt="인기도서"/> <img src="https://github.com/user-attachments/assets/6aa46c97-3e5b-43a0-91cf-49268d009bb2" width="200" alt="대출 급상승"/>|<img src="https://github.com/user-attachments/assets/4dd0aa35-dc25-4b7a-afdd-772287ff2a46" width="200" alt="포인트샵"/> |
+|               카카오 API를 이용하여 소셜 로그인 구현               |            홈 상단에 탭메뉴를 통해 접근가능 <br />도서관 정보나루 API 이용 / 크롤링을 통해 데이터 수집하여 API로 구현 <br />UI는 carousel로 구현하고 navigation 버튼을 나타내 사용자 중심 UI 구성         |  
 
 
 
-|                           [대출 인증]                         |                        [출석 인증]                         |              
+
+|                                            [지리 기반 도서관 위치 안내 및 도서관 정]                   |                                     
+| :---------------------------------------------------------------: | 
+|<img src="https://github.com/user-attachments/assets/a37912ad-d6eb-44e3-aa21-d1ac9594997f" width="200" alt="가까운 매장"/> <img src="https://github.com/user-attachments/assets/c920be86-dd41-4647-9a92-be625f759436" width="200" alt="도서관 정보"/> | 
+|              카카오 맵 API 사용<br />서울 도서관 API 사용<br /> 사용자 위치 기반으로 인근 도서관의 위치를 제공, 도서관 마커 클릭 시 해당 도서관의 상세 정보 확인              | 
+
+|       [즐겨찾기] / [즐겨찾기 목록]                        |                                
+| :---------------------------------------------------------------: | 
+| <img src="https://github.com/user-attachments/assets/26574960-44b6-4f37-9afd-869ea621dd91" width="200" alt="즐겨찾기"/> <img src="https://github.com/user-attachments/assets/46ce9a1a-d581-4a4b-aa69-512f5971d4fd" width="200" alt="즐겨찾기목록"/>|
+|            사용자는 즐겨 찾는 도서관 등록 및 해제 가능, 등록한 도서관은 자주 찾는 도서관 탭에서 확인 가능.         |        
+
+
+|                        [출석 인증]                         |              
+| :---------------------------------------------------------------: | 
+| <img src="https://github.com/user-attachments/assets/41f844a7-19f4-4baf-abbd-e7b6a33f989b" width="200" alt="출석하기"/><img src="https://github.com/user-attachments/assets/23d8cf2b-bd9e-4cde-a931-98d9aa711797" width="200" alt="출석하기"/> <img src="https://github.com/user-attachments/assets/8c6a301e-cfe5-4656-ad74-df4c50187e7e" width="200" alt="출석하기"/>|
+|    사용자와 도서관 위치를 비교하여 5km 안이면 마커 클릭 시 출석하기 버튼 활성되도록 구현<br /> 그 후 출석 등록 가능(포인트 10을 얻게 됩니다.) <br />마커 색은 클릭시 진한 남색으로 표시하여 사용자 시점 생각하여 구현          |
+
+|                            [대출 인증]                            |           [포인트샵]                         |                                   
 | :---------------------------------------------------------------: | :---------------------------------------------------------------: | 
-| <img src="https://github.com/user-attachments/assets/f61c20c4-c4cd-467e-a06b-f1aeecde0ebb" width="200" alt="대출하기"/>|<img src="https://github.com/user-attachments/assets/41f844a7-19f4-4baf-abbd-e7b6a33f989b" width="200" alt="출석하기"/><img src="https://github.com/user-attachments/assets/23d8cf2b-bd9e-4cde-a931-98d9aa711797" width="200" alt="출석하기"/> <img src="https://github.com/user-attachments/assets/8c6a301e-cfe5-4656-ad74-df4c50187e7e" width="200" alt="출석하기"/>|
-|           인증을 위해 카메라 구현<br />인증을 통해 포인트 얻음        |    사용자와 도서관 위치를 비교하여 5km 안이면 마커 클릭 시 출석하기 버튼 활성되도록 구현<br /> 그 후 출석 등록 가능(포인트 10을 얻게 됩니다.) <br />마커 색은 클릭시 진한 남색으로 표시하여 사용자 시점 생각하여 구현          |
-
+| <img src="https://github.com/user-attachments/assets/f61c20c4-c4cd-467e-a06b-f1aeecde0ebb" width="200" alt="대출인증"/> |<img src="https://github.com/user-attachments/assets/4dd0aa35-dc25-4b7a-afdd-772287ff2a46" width="200" alt="포인트샵"/> |
+|               인증을 위해 카메라 구현<br />인증을 통해 포인트 얻음               |          출석하기 및 대출하기로 모은 포인트 사용 가능              |
 
 ## :purple_heart:트러블 슈팅
 
