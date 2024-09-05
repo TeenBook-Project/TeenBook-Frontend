@@ -7,6 +7,7 @@ import LibraryMarker from "../../assets/LibraryMarker.png";
 import { useRecoilState } from "recoil";
 import { LibraryAtom } from "../../recoil/LibraryAtom";
 import { FaLocationCrosshairs } from "react-icons/fa6";
+import { HiMapPin } from "react-icons/hi2";
 import styled from "styled-components";
 
 // 좌표 간 거리를 계산하는 함수 (단위: 미터)
@@ -61,24 +62,24 @@ const Maps = () => {
     loadLibraries();
 
     // 테스트용으로 서울의 좌표를 현재 위치로 설정
-    // setCurrentPosition({
-    //   lat: 37.6876674374375,
-    //   lng: 127.044019937677,
-    // });
+    setCurrentPosition({
+      lat: 37.687194,
+      lng: 127.0437871,
+    });
 
     // 사용자 현재 위치 가져오기
 
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        setCurrentPosition({
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        });
-      },
-      (error) => {
-        console.error("Error getting current position:", error);
-      }
-    );
+    // navigator.geolocation.getCurrentPosition(
+    //   (position) => {
+    //     setCurrentPosition({
+    //       lat: position.coords.latitude,
+    //       lng: position.coords.longitude,
+    //     });
+    //   },
+    //   (error) => {
+    //     console.error("Error getting current position:", error);
+    //   }
+    // );
   }, []);
 
   // 가까운 도서관만 필터링하는 함수

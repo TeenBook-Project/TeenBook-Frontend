@@ -143,15 +143,7 @@ const Loan = () => {
             <MdCameraswitch color="white" size={25} />
           </button>
         </div>
-        <div className="button">
-          <button className="left" onClick={() => navigate(-1)}>
-            <IoChevronBack size={30} />
-            뒤로가기
-          </button>
-          <button onClick={toggleCamera}>
-            <MdCameraswitch color="white" size={25} />
-          </button>
-        </div>
+
         <p>대출인증</p>
         <p>대출증을 사진 찍어 주세요!</p>
       </Header>

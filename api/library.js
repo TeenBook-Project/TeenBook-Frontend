@@ -1,5 +1,3 @@
-// import axios from "axios";
-// const BASE_URL = import.meta.env.VITE_LIBRARY_API_URL;
 export default async function handler(req, res) {
   try {
     const response = await fetch(
