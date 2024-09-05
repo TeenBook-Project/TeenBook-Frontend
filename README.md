@@ -62,4 +62,3 @@ TeenBook은 청소년들이 도서관 이벤트와 정보에 대해서 쉽게 �
 
 1. PWA와 HMR 충돌-> https://simple-relish-748.notion.site/pwa-hmr-698a278787b44a46a2aebbdf8225dbca?pvs=4
 2. 프론트 배포 후 Mixed Content 에러 -> https://simple-relish-748.notion.site/Mixed-Content-73f5afa24a224cc89e9dc7892e8573a8?pvs=4
-3. 프론트엔드 배포 주소와 백엔드 API 주소 간의 CORS 에러 -> https://simple-relish-748.notion.site/CORS-5dca3628bdaa4beb82247e4824667ab9?pvs=4
