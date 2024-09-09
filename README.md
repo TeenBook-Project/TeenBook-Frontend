@@ -37,7 +37,7 @@ TeenBook은 청소년들이 도서관 이벤트와 정보에 대해서 쉽게 �
 
 
 
-|                                            [지리 기반 도서관 위치 안내 및 도서관 정]                   |                                     
+|                                            [지리 기반 도서관 위치 안내 및 도서관 정보]                   |                                     
 | :---------------------------------------------------------------: | 
 |<img src="https://github.com/user-attachments/assets/a37912ad-d6eb-44e3-aa21-d1ac9594997f" width="200" alt="가까운 매장"/> <img src="https://github.com/user-attachments/assets/c920be86-dd41-4647-9a92-be625f759436" width="200" alt="도서관 정보"/> | 
 |              카카오 맵 API 사용<br />서울 도서관 API 사용<br /> 사용자 위치 기반으로 인근 도서관의 위치를 제공, 도서관 마커 클릭 시 해당 도서관의 상세 정보 확인              | 
@@ -60,5 +60,5 @@ TeenBook은 청소년들이 도서관 이벤트와 정보에 대해서 쉽게 �
 
 ## :purple_heart:트러블 슈팅
 
-1. PWA와 HMR 충돌-> https://simple-relish-748.notion.site/pwa-hmr-698a278787b44a46a2aebbdf8225dbca?pvs=4
-2. 프론트 배포 후 Mixed Content 에러 -> https://simple-relish-748.notion.site/Mixed-Content-73f5afa24a224cc89e9dc7892e8573a8?pvs=4
+1. PWA와 HMR 충돌-> https://simple-relish-748.notion.site/PWA-HMR-f5131547511343acbf7dfc9b878f290a?pvs=4
+2. 프론트 배포 후 Mixed Content 에러 -> https://simple-relish-748.notion.site/Mixed-Content-7276674bc13a4a9ca7bd4dd895f26a0b?pvs=4
