@@ -7,6 +7,7 @@ import "swiper/css/pagination";
 import TrendCard from "../card/TrendCard";
 import styled from "styled-components";
 import Loading from "../Loading";
+import Carousel from "./Carousel";
 const Container = styled.div`
   position: relative;
   width: 100%;
@@ -33,17 +34,7 @@ const SwiperContainer = styled(SwiperSlide)`
     object-fit: cover;
   }
 `;
-const LoadingOverlay = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 10;
-`;
+
 const TrendingBooks = () => {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -63,12 +54,9 @@ const TrendingBooks = () => {
   }, []);
   return (
     <Container>
-      {loading && (
-        <LoadingOverlay>
-          <Loading />
-        </LoadingOverlay>
-      )}
-      <MySwipter
+      {loading && <Loading />}
+      <Carousel books={books} key="hb_num" CardComponent={TrendCard} />
+      {/* <MySwipter
         slidesPerView={1}
         spaceBetween={10}
         pagination={{
@@ -82,7 +70,7 @@ const TrendingBooks = () => {
             <TrendCard data={e} ranking={index + 1} />
           </SwiperContainer>
         ))}
-      </MySwipter>
+      </MySwipter> */}
     </Container>
   );
 };
