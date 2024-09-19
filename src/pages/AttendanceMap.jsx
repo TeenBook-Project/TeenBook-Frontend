@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { IoChevronBack } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import Maps from "../components/attendance/Maps";
+// import Maps from "../components/common/Map/Maps";
 import { PostAttendance } from "../api/AttendanceAPI";
 
 const Container = styled.div`

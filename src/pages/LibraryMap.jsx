@@ -13,11 +13,12 @@ const Container = styled.div`
 `;
 
 const MapContainer = styled.div`
-  flex: 1;
+  /* flex: 1;
   overflow: auto;
   &::-webkit-scrollbar {
     display: none;
-  }
+  } */
+  flex-grow: 1;
 `;
 const TabMenu = styled.div`
   display: flex;
@@ -34,7 +35,10 @@ const TabMenu = styled.div`
     color: #8367e1;
   }
 `;
-
+const Top = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 const LibraryMap = () => {
   const [currentTab, setCurrentTab] = useState(0);
   const [favoritItem, setFavortItem] = useRecoilState(FavoritAtom);
@@ -48,9 +52,8 @@ const LibraryMap = () => {
   };
   return (
     <Container>
-      <Header />
-
-      <MapContainer>
+      <Top>
+        <Header />
         <TabMenu>
           {menuArr.map((tap, index) => {
             return (
@@ -64,8 +67,11 @@ const LibraryMap = () => {
             );
           })}
         </TabMenu>
-        <div>{menuArr[currentTab].content}</div>
-      </MapContainer>
+      </Top>
+
+      <MapContainer>{menuArr[currentTab].content}</MapContainer>
+      {/* <Maps /> */}
+
       <Footer />
     </Container>
   );
