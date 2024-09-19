@@ -120,6 +120,5 @@ const LocationButton = styled.button`
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  /* box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1); */
   z-index: 10;
 `;
