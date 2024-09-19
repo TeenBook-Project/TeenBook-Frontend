@@ -78,9 +78,6 @@ const BookCard = ({ data, ranking }) => {
     <CardContainer>
       <div className="rank">
         <BsFillBarChartFill size={10} />
-        {/* {rank.map((e) => (
-          <p key={e.ranking}>{e.ranking}등</p>
-        ))} */}
         <p>{ranking}등</p>
       </div>
       <ImageContainer>
@@ -88,7 +85,7 @@ const BookCard = ({ data, ranking }) => {
       </ImageContainer>
       <Content>
         <div className="bookname">{data.bookname}</div>
-        <div className="author">지은이: {data.authors}</div>
+        <div className="author">{data.authors}</div>
         <div className="isbn">ISBN: {data.isbn13}</div>
       </Content>
     </CardContainer>

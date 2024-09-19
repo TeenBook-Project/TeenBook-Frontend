@@ -77,6 +77,10 @@ const Content = styled.div`
 `;
 
 const TrendCard = ({ data, ranking }) => {
+  const thumbnail = data?.thumbnail_url || "default_image_url"; // 기본 이미지 URL 설정
+  const title = data?.title || "제목 없음";
+  const info = data?.info || "정보 없음";
+  const isbn = data?.hb_IBSN || "ISBN 정보 없음";
   return (
     <CardContainer>
       <div className="rank">
@@ -87,12 +91,12 @@ const TrendCard = ({ data, ranking }) => {
         <p>{ranking}등</p>
       </div>
       <ImageContainer>
-        <img src={data.thumbnail_url} alt={data.title} />
+        <img src={thumbnail} alt={title} />
       </ImageContainer>
       <Content>
-        <div className="bookname">{data.title}</div>
-        <div className="author">{data.info}</div>
-        <div className="isbn">ISBN: {data.hb_IBSN}</div>
+        <div className="bookname">{title}</div>
+        <div className="author">{info}</div>
+        <div className="isbn">ISBN: {isbn}</div>
       </Content>
     </CardContainer>
   );
