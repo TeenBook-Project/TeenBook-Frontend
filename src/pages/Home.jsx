@@ -10,21 +10,14 @@ import book from "../assets/book.png";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
 `;
 const MainContent = styled.div`
   flex-grow: 1;
   display: flex;
   flex-direction: column;
   height: calc(100vh - 300px);
-  /* justify-content: space-between; */
 `;
 
-const Bottom = styled.div`
-  position: relative;
-  bottom: 0;
-  width: 100%;
-`;
 const TabMenu = styled.div`
   display: flex;
   align-items: center;
@@ -56,14 +49,9 @@ const TabMenu = styled.div`
 const TabContent = styled.div`
   flex-grow: 1;
   overflow-y: auto;
-  /* margin-left: 20px; */
   margin: 0 20px;
 `;
 const Menu = styled.div`
-  /* display: flex;
-  justify-content: space-around;
-  margin: 20px 10px; */
-
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 10px;
@@ -102,7 +90,6 @@ const Home = () => {
   };
   return (
     <Container>
-      <Header />
       <MainContent>
         <TabMenu>
           {menuArr.map((tap, index) => {
@@ -138,9 +125,6 @@ const Home = () => {
           </div>
         </Link>
       </Menu>
-      <Bottom>
-        <Footer />
-      </Bottom>
     </Container>
   );
 };

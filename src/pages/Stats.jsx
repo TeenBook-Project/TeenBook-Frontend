@@ -14,7 +14,7 @@ const Container = styled.div`
 
 const StatsContainer = styled.div`
   flex: 1;
-  padding: 20px 17px;
+  margin: 20px 17px 120px;
 
   display: flex;
   flex-direction: column;
@@ -48,7 +48,6 @@ const Stats = () => {
   }, []);
   return (
     <Container>
-      <Header />
       <StatsContainer>
         <PointContainer>
           <Point stats={stats} />
@@ -60,7 +59,6 @@ const Stats = () => {
           <Loans stats={stats} />
         </LoansContainer>
       </StatsContainer>
-      <Footer />
     </Container>
   );
 };
