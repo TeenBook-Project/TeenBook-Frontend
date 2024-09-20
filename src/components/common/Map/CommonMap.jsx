@@ -109,8 +109,8 @@ export default CommonMap;
 
 const LocationButton = styled.button`
   position: absolute;
-  bottom: 20px;
-  left: 10px;
+  top: 20px;
+  left: 20px;
   background-color: white;
   border: none;
   border-radius: 50%;

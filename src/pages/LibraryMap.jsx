@@ -35,10 +35,6 @@ const TabMenu = styled.div`
     color: #8367e1;
   }
 `;
-const Top = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
 const LibraryMap = () => {
   const [currentTab, setCurrentTab] = useState(0);
   const [favoritItem, setFavortItem] = useRecoilState(FavoritAtom);
@@ -52,22 +48,20 @@ const LibraryMap = () => {
   };
   return (
     <Container>
-      <Top>
-        <Header />
-        <TabMenu>
-          {menuArr.map((tap, index) => {
-            return (
-              <div
-                key={index}
-                className={currentTab === index ? "submenu focused" : "submenu"}
-                onClick={() => selectMenuHandler(index)}
-              >
-                {tap.name}
-              </div>
-            );
-          })}
-        </TabMenu>
-      </Top>
+      {/* <Header /> */}
+      <TabMenu>
+        {menuArr.map((tap, index) => {
+          return (
+            <div
+              key={index}
+              className={currentTab === index ? "submenu focused" : "submenu"}
+              onClick={() => selectMenuHandler(index)}
+            >
+              {tap.name}
+            </div>
+          );
+        })}
+      </TabMenu>
 
       <MapContainer>{menuArr[currentTab].content}</MapContainer>
       {/* <Maps /> */}
