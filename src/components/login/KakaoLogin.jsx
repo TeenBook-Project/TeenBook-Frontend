@@ -65,6 +65,7 @@ const KakaoLogin = () => {
       console.log("데이터:", userData);
       await PostUser(userData, navigate, setSignIn);
       setUser(userData);
+      alert("로그인 완료되었습니다.");
       // await axios.post("/api/teenbok-api/proxy", userData);
       // console.log("로그인 성공:", response.data);
     } catch (error) {
