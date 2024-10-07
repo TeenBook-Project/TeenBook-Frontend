@@ -11,23 +11,23 @@ const Maps = () => {
 
   useEffect(() => {
     // 테스트용으로 서울의 좌표를 현재 위치로 설정
-    // setCurrentPosition({
-    //   lat: 37.6876674374375,
-    //   lng: 127.044019937677,
-    // });
+    setCurrentPosition({
+      lat: 37.6876674374375,
+      lng: 127.044019937677,
+    });
 
     // 사용자 현재 위치 가져오기
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        setCurrentPosition({
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        });
-      },
-      (error) => {
-        console.error("Error getting current position:", error);
-      }
-    );
+    // navigator.geolocation.getCurrentPosition(
+    //   (position) => {
+    //     setCurrentPosition({
+    //       lat: position.coords.latitude,
+    //       lng: position.coords.longitude,
+    //     });
+    //   },
+    //   (error) => {
+    //     console.error("Error getting current position:", error);
+    //   }
+    // );
   }, []);
 
   // 가까운 도서관만 필터링하는 함수
