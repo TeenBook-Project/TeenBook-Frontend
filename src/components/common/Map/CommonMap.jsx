@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Map, MapMarker, MarkerClusterer, Circle } from "react-kakao-maps-sdk";
 import CurrentMarker from "../../../assets/MyMarker.png";
-import LibraryMarker from "../../../assets/LibraryMarker.png";
+import LabraryMarker from "../../../assets/LibraryMarker.png";
 import { FaLocationCrosshairs } from "react-icons/fa6";
 import styled from "styled-components";
 const LIBRARY_API_URL = import.meta.env.VITE_LIBRARY_API_URL;
@@ -27,7 +27,7 @@ const CommonMap = ({ onClick, currentPosition }) => {
   const [mapLevel, setMapLevel] = useState(10);
   const [map, setMap] = useState(null);
   const [libraries, setLibraries] = useState([]);
-  const [hoveredLibrary, setHoveredLibrary] = useState(null); // hover 상태 관리
+  const [selectedLibraryId, setSelectedLibraryId] = useState(null); // 클릭된 마커의 ID
 
   useEffect(() => {
     const loadLibraries = async () => {
@@ -51,6 +51,11 @@ const CommonMap = ({ onClick, currentPosition }) => {
     }
   };
 
+  const handleMarkerClick = (library) => {
+    setSelectedLibraryId(library.LBRRY_SEQ_NO); // 클릭된 마커 ID 저장
+    onClick(library);
+  };
+
   return (
     <Map
       center={
@@ -70,16 +75,14 @@ const CommonMap = ({ onClick, currentPosition }) => {
               position={{ lat: lib.XCNTS, lng: lib.YDNTS }}
               clickable={true}
               image={{
-                src: LibraryMarker,
+                src: LabraryMarker,
                 size: {
-                  width: hoveredLibrary === lib.LBRRY_SEQ_NO ? 48 : 32, // hover 시 크기 조정
-                  height: hoveredLibrary === lib.LBRRY_SEQ_NO ? 60 : 40, // hover 시 크기 조정
+                  width: selectedLibraryId === lib.LBRRY_SEQ_NO ? 48 : 32, // 클릭된 마커의 크기 조정
+                  height: selectedLibraryId === lib.LBRRY_SEQ_NO ? 60 : 40, // 클릭된 마커의 크기 조정
                 },
               }}
-              onClick={() => onClick(lib)}
-              onMouseOver={() => setHoveredLibrary(lib.LBRRY_SEQ_NO)} // hover 시 상태 변경
-              onMouseOut={() => setHoveredLibrary(null)} // hover 해제 시 상태 초기화
-            />
+              onClick={() => handleMarkerClick(lib)}
+            ></MapMarker>
             {mapLevel <= 5 && (
               <Circle
                 center={{
@@ -87,12 +90,12 @@ const CommonMap = ({ onClick, currentPosition }) => {
                   lng: lib.YDNTS,
                 }}
                 radius={100}
-                strokeWeight={1}
-                strokeColor={"#5479EE"}
-                strokeOpacity={1}
-                strokeStyle={"solid"}
-                fillColor={"#CFE7FF"}
-                fillOpacity={0.5}
+                strokeWeight={1} // 선의 두께
+                strokeColor={"#5479EE"} // 선의 색깔
+                strokeOpacity={1} // 선의 불투명도
+                strokeStyle={"solid"} // 선의 스타일
+                fillColor={"#CFE7FF"} // 채우기 색깔
+                fillOpacity={0.5} // 채우기 불투명도
               />
             )}
           </div>
@@ -101,6 +104,7 @@ const CommonMap = ({ onClick, currentPosition }) => {
       <LocationButton onClick={moveToCurrentLocation}>
         <FaLocationCrosshairs />
       </LocationButton>
+      {/* 현재 위치 표시 */}
       {currentPosition && (
         <MapMarker
           position={{ lat: currentPosition.lat, lng: currentPosition.lng }}
