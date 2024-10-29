@@ -3,6 +3,7 @@
 </p>
 <h1 align="center">📖 청소년을 위한 도서관 TeenBook </h1>
 <p align="center">프로젝트 기간 : 2024.08.05 ~2024.08.30</p>
+<p align="center">배포 : https://www.teenbook.click/</p>
 
 ### 프로젝트 소개
 TeenBook은 청소년들이 도서관 이벤트와 정보에 대해서 쉽게 접근하고, 비슷한 나이대의 인기 도서와 급상승 도서를 발견하며, **도서관 이용을 일상화하고 재미있게 다가갈 수 있도록 지원하는 것을 목표**로 하였습니다.
@@ -17,9 +18,7 @@ TeenBook은 청소년들이 도서관 이벤트와 정보에 대해서 쉽게 �
 |                            기획                             |                            프론트엔드                             |                              백엔드                               |            
 | :---------------------------------------------------------------: | :---------------------------------------------------------------: | :---------------------------------------------------------------: |
 |               [하명관](https://github.com/bulmang)                |            [박효빈](https://github.com/binjin0)              |               [심한주](https://github.com/simhanju)               |
-##  :heart:배포
-프론트 엔드는 vercel에, 백엔드는 aws에 배포를 진행하였습니다.<br />
-링크 - https://www.teenbook.click/
+
 ##  :yellow_heart:기술 스택
 [![My Skills](https://skillicons.dev/icons?i=js,html,css,react,vite,git,github,vercel,vscode,figma&theme=light)](https://skillicons.dev)<br />
 
@@ -51,12 +50,12 @@ TeenBook은 청소년들이 도서관 이벤트와 정보에 대해서 쉽게 �
 |                        [출석 인증]                         |              
 | :---------------------------------------------------------------: | 
 | <img src="https://github.com/user-attachments/assets/41f844a7-19f4-4baf-abbd-e7b6a33f989b" width="200" alt="출석하기"/><img src="https://github.com/user-attachments/assets/23d8cf2b-bd9e-4cde-a931-98d9aa711797" width="200" alt="출석하기"/> <img src="https://github.com/user-attachments/assets/8c6a301e-cfe5-4656-ad74-df4c50187e7e" width="200" alt="출석하기"/>|
-|    사용자와 도서관 위치를 비교하여 5km 안이면 마커 클릭 시 출석하기 버튼 활성되도록 구현<br /> 그 후 출석 등록 가능(포인트 10을 얻게 됩니다.) <br />마커 색은 클릭시 진한 남색으로 표시하여 사용자 시점 생각하여 구현          |
+|    사용자와 도서관 위치를 비교하여 100m 안이면 마커 클릭 시 출석하기 버튼 활성되도록 구현<br /> 그 후 출석 등록 가능(경험치 10을 얻게 됩니다.) <br />마커 색은 클릭시 진한 남색으로 표시하여 사용자 시점 생각하여 구현          |
 
 |                            [대출 인증]                            |           [포인트샵]                         |                                   
 | :---------------------------------------------------------------: | :---------------------------------------------------------------: | 
 | <img src="https://github.com/user-attachments/assets/f61c20c4-c4cd-467e-a06b-f1aeecde0ebb" width="200" alt="대출인증"/> |<img src="https://github.com/user-attachments/assets/4dd0aa35-dc25-4b7a-afdd-772287ff2a46" width="200" alt="포인트샵"/> |
-|               인증을 위해 카메라 구현<br />인증을 통해 포인트 얻음               |          출석하기 및 대출하기로 모은 포인트 사용 가능              |
+|               인증을 위해 카메라 구현<br />인증을 통해 포인트 500 얻음               |          출석하기 및 대출하기로 모은 포인트 사용 가능              |
 
 ## :purple_heart:트러블 슈팅
 
